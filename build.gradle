@@ -7,16 +7,17 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.bababadboy'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
@@ -26,13 +27,27 @@ repositories {
     }
 }
 
-
 jar {
-    baseName = 'hello-world'
-    version = '0.0.1-SNAPSHOT'
+    baseName = 'DealerMng'
+    version = '1.0.0-SNAPSHOT'
 }
 
 dependencies {
+    // 添加Spring Boot启动依赖
     implementation('org.springframework.boot:spring-boot-starter-web')
+
+    // 添加Spring Data JPA依赖
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    // 添加MySQL连接依赖
+    implementation('mysql:mysql-connector-java')
+
+    // 添加 Spring Security 依赖
+    implementation('org.springframework.boot:spring-boot-starter-security')
+
+    // 添加 Spring Boot Devtools 的依赖 实现热部署
+    implementation('org.springframework.boot:spring-boot-devtools')
+
+    // 添加Spring Boot测试环境依赖
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
