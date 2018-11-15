@@ -1,6 +1,5 @@
 package com.bababadboy.dealermng;
 
-import com.bababadboy.dealermng.controller.HelloController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = HelloController.class)
 @AutoConfigureMockMvc
 public class ApplicationTests {
 
@@ -27,10 +25,4 @@ public class ApplicationTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    public void testHello() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/hello").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Hello World!")));
-    }
 }

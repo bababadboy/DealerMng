@@ -48,6 +48,15 @@ dependencies {
     // 添加 Spring Boot Devtools 的依赖 实现热部署
     implementation('org.springframework.boot:spring-boot-devtools')
 
+    // 添加 Alibaba Fastjson 依赖
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.51'
+
+    // 添加swagger2,集成api,https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+
+    // 添加swagger-ui,https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+
     // 添加Spring Boot测试环境依赖
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
