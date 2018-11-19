@@ -1,4 +1,4 @@
-package com.bababadboy.dealermng.pojo;
+package com.bababadboy.dealermng.entity;
 
 import org.springframework.data.annotation.Id;
 
@@ -21,7 +21,7 @@ id	INT(自动生成)	AUTO_INCREMENT;PRIMARY KEY
  */
 @Entity
 @Table(name = "product")
-public class ProductPo implements Serializable {
+public class Product implements Serializable {
 
     @Id
     @Column(name = "id")

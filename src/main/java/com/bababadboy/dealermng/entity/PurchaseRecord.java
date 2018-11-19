@@ -1,10 +1,10 @@
-package com.bababadboy.dealermng.pojo;
+package com.bababadboy.dealermng.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="purchaseRecord")
-public class PurchaseRecordPO {
+public class PurchaseRecord {
 
 }
