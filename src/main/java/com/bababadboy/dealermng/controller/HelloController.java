@@ -8,17 +8,12 @@ import java.util.List;
 
 /**
  * 测试Controller
+ * @author Ash
  */
 @RestController
 public class HelloController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String demo() {
-        /*String[] strings = new String[3];
-        strings[0] = "demo1";
-        strings[1] = "demo2";
-        strings[2] = "demo3";
-        String json = JSON.toJSONString(strings);
-        return json;*/
         return "demo";
     }
 }

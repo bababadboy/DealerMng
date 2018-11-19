@@ -7,6 +7,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 import java.util.List;
 
+/**
+ * 自定义配置
+ * @author Ash
+ */
 @Configuration
 public class WebMvcConfigurer extends WebMvcConfigurationSupport {
     @Override
