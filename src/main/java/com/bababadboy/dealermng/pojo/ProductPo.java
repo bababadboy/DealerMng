@@ -2,10 +2,7 @@ package com.bababadboy.dealermng.pojo;
 
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /*
@@ -27,7 +24,7 @@ id	INT(自动生成)	AUTO_INCREMENT;PRIMARY KEY
 public class ProductPo implements Serializable {
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue
     private Long id;
 
@@ -36,6 +33,11 @@ public class ProductPo implements Serializable {
     private String name;
 
     private int stock;
+
+    @Version
+    @Column(name = "version")
+    private int version;
+
     private String type;
     private String functions;
     private double price;
@@ -67,7 +69,13 @@ public class ProductPo implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    public int getVersion() {
+        return version;
+    }
 
+    public void setVersion(int version) {
+        this.version = version;
+    }
     public int getStock() {
         return stock;
     }
