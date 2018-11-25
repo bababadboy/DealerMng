@@ -60,5 +60,6 @@ dependencies {
     // 添加Spring Boot测试环境依赖
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
-
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
 }

@@ -1,7 +1,5 @@
 package com.bababadboy.dealermng.entity;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,9 +9,8 @@ public class Product implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-
 
     private String no;
 
@@ -26,13 +23,41 @@ public class Product implements Serializable {
     private int version;
 
     private String type;
-    private String functions;
+    private String descrption;
     private double price;
-    private String intro;
-    private String imagesLink;
 
+    @Column(name = "image_src")
+    private String imageSrc;
+
+    public Product() {
+    }
+
+    public Product(String no, String name, int stock, int version, String type, String descrption, double price, String imageSrc) {
+        this.no = no;
+        this.name = name;
+        this.stock = stock;
+        this.version = version;
+        this.type = type;
+        this.descrption = descrption;
+        this.price = price;
+        this.imageSrc = imageSrc;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", no='" + no + '\'' +
+                ", name='" + name + '\'' +
+                ", stock=" + stock +
+                ", version=" + version +
+                ", type='" + type + '\'' +
+                ", descrption='" + descrption + '\'' +
+                ", price=" + price +
+                ", imageSrc='" + imageSrc + '\'' +
+                '}';
+    }
     /**** setter and getter ****/
-
     public Long getId() {
         return id;
     }
@@ -56,19 +81,21 @@ public class Product implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public int getVersion() {
-        return version;
-    }
 
-    public void setVersion(int version) {
-        this.version = version;
-    }
     public int getStock() {
         return stock;
     }
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public String getType() {
@@ -79,12 +106,12 @@ public class Product implements Serializable {
         this.type = type;
     }
 
-    public String getFunctions() {
-        return functions;
+    public String getDescrption() {
+        return descrption;
     }
 
-    public void setFunctions(String functions) {
-        this.functions = functions;
+    public void setDescrption(String descrption) {
+        this.descrption = descrption;
     }
 
     public double getPrice() {
@@ -95,20 +122,12 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public String getIntro() {
-        return intro;
+    public String getImageSrc() {
+        return imageSrc;
     }
 
-    public void setIntro(String intro) {
-        this.intro = intro;
-    }
-
-    public String getImagesLink() {
-        return imagesLink;
-    }
-
-    public void setImagesLink(String imagesLink) {
-        this.imagesLink = imagesLink;
+    public void setImageSrc(String imageSrc) {
+        this.imageSrc = imageSrc;
     }
 
 }
