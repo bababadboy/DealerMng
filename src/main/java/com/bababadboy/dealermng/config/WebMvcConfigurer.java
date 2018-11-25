@@ -20,6 +20,7 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
         //FastJsonConfig config = new FastJsonConfig();
         //config.set ...
         //converter.setFastJsonConfig(config);
+
         converters.add(0, converter);
     }
 }
