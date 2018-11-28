@@ -2,6 +2,8 @@ package com.bababadboy.dealermng.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -9,7 +11,7 @@ public class Product implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String no;
@@ -22,41 +24,41 @@ public class Product implements Serializable {
     @Column(name = "version")
     private int version;
 
-    private String type;
-    private String descrption;
+    private String categories;
+    private String description;
     private double price;
 
-    @Column(name = "image_src")
-    private String imageSrc;
+    /*
+    * 轮播图列表
+    * */
+    @ElementCollection
+    private List<String> imageUrl = new ArrayList<>();
 
+
+    /*
+    * 详情图列表
+    * */
+    @ElementCollection
+    private List<String> detailImages = new ArrayList<>();
+
+    /**
+     * 构造函数
+     **/
     public Product() {
     }
 
-    public Product(String no, String name, int stock, int version, String type, String descrption, double price, String imageSrc) {
+    public Product(String no, String name, int stock, int version, String categories, String description, double price, List<String> imageUrl, List<String> detailImages) {
         this.no = no;
         this.name = name;
         this.stock = stock;
         this.version = version;
-        this.type = type;
-        this.descrption = descrption;
+        this.categories = categories;
+        this.description = description;
         this.price = price;
-        this.imageSrc = imageSrc;
+        this.imageUrl = imageUrl;
+        this.detailImages = detailImages;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", no='" + no + '\'' +
-                ", name='" + name + '\'' +
-                ", stock=" + stock +
-                ", version=" + version +
-                ", type='" + type + '\'' +
-                ", descrption='" + descrption + '\'' +
-                ", price=" + price +
-                ", imageSrc='" + imageSrc + '\'' +
-                '}';
-    }
     /**** setter and getter ****/
     public Long getId() {
         return id;
@@ -98,20 +100,20 @@ public class Product implements Serializable {
         this.version = version;
     }
 
-    public String getType() {
-        return type;
+    public String getCategories() {
+        return categories;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCategories(String categories) {
+        this.categories = categories;
     }
 
-    public String getDescrption() {
-        return descrption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrption(String descrption) {
-        this.descrption = descrption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getPrice() {
@@ -122,12 +124,20 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public String getImageSrc() {
-        return imageSrc;
+    public List<String> getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageSrc(String imageSrc) {
-        this.imageSrc = imageSrc;
+    public void setImageUrl(List<String> imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public List<String> getDetailImages() {
+        return detailImages;
+    }
+
+    public void setDetailImages(List<String> detailImages) {
+        this.detailImages = detailImages;
     }
 
 }

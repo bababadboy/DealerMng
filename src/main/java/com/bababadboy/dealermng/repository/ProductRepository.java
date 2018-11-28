@@ -9,8 +9,12 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
+
     Product findById(long id);
 
     @Override
     List<Product> findAll();
+
+    @Override
+    <S extends Product> S saveAndFlush(S entity);
 }
