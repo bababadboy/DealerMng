@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author wangxiaobin
+ */
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
 

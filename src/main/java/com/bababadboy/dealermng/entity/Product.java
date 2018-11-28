@@ -5,6 +5,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * 产品实体类
+ * @author wangxiaobin
+ */
 @Entity
 @Table(name = "product")
 public class Product implements Serializable {
