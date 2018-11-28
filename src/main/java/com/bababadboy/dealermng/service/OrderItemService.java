@@ -3,6 +3,6 @@ package com.bababadboy.dealermng.service;
 /**
  * @author Ash
  */
-public interface OrderService {
+public interface OrderItemService {
 
 }
