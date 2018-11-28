@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 @Table(name = "product")
 public class Product implements Serializable {
@@ -140,4 +139,5 @@ public class Product implements Serializable {
     public void setDetailImages(List<String> detailImages) {
         this.detailImages = detailImages;
     }
+
 }
