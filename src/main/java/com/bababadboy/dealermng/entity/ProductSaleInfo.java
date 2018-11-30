@@ -3,10 +3,10 @@ import org.hibernate.annotations.Type;
 import java.math.BigDecimal;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
- * @author TwinkleN1
+ * @author iYmz
  */
 @Entity
 @Table(name = "product_sale_info")
@@ -56,19 +56,19 @@ public class ProductSaleInfo implements Serializable {
     //下单时间
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date orderTime;
+    private Calendar orderTime;
 
     //发货时间
     @Temporal(TemporalType.TIMESTAMP)
-    private Date deliveryTime;
+    private Calendar deliveryTime;
 
     //付款时间
     @Temporal(TemporalType.TIMESTAMP)
-    private Date paymentTime;
+    private Calendar paymentTime;
 
     //订单完成时间
     @Temporal(TemporalType.TIMESTAMP)
-    private Date orderFinishTime;
+    private Calendar orderFinishTime;
 
     //备注
     private String comment;
@@ -151,35 +151,35 @@ public class ProductSaleInfo implements Serializable {
         this.orderAmount = orderAmount;
     }
 
-    public Date getOrderTime() {
+    public Calendar getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(Date orderTime) {
+    public void setOrderTime(Calendar orderTime) {
         this.orderTime = orderTime;
     }
 
-    public Date getDeliveryTime() {
+    public Calendar getDeliveryTime() {
         return deliveryTime;
     }
 
-    public void setDeliveryTime(Date deliveryTime) {
+    public void setDeliveryTime(Calendar deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
 
-    public Date getPaymentTime() {
+    public Calendar getPaymentTime() {
         return paymentTime;
     }
 
-    public void setPaymentTime(Date paymentTime) {
+    public void setPaymentTime(Calendar paymentTime) {
         this.paymentTime = paymentTime;
     }
 
-    public Date getOrderFinishTime() {
+    public Calendar getOrderFinishTime() {
         return orderFinishTime;
     }
 
-    public void setOrderFinishTime(Date orderFinishTime) {
+    public void setOrderFinishTime(Calendar orderFinishTime) {
         this.orderFinishTime = orderFinishTime;
     }
 

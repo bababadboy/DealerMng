@@ -20,12 +20,11 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/sale")
 public class ProductSaleController {
     @Autowired
     private ProductSaleRepository productSaleRepository;
 
-    @GetMapping(value="/all")
+    @GetMapping(value="/productsales")
     public Object all()
     {
        // System.out.println("get all");
@@ -34,7 +33,7 @@ public class ProductSaleController {
         return psList;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/productsales/{id}")
     public Object getSaleInfoById(@PathVariable("id") Long id){
         //System.out.println("get id");
         ProductSaleInfo psi= productSaleRepository.findProductSaleInfoById(id);
@@ -42,12 +41,12 @@ public class ProductSaleController {
         return psi;
     }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/productsales/{id}",method = RequestMethod.DELETE)
     public void deleteSaleInfo(@PathVariable("id") Long id){
         productSaleRepository.deleteById(id);
     }
 
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "/productsales",method = RequestMethod.POST)
     public ResponseEntity<ProductSaleInfo> createSaleInfo(@RequestBody ProductSaleInfo psiBody){
         ProductSaleInfo savePS = productSaleRepository.save(psiBody);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -56,8 +55,8 @@ public class ProductSaleController {
     }
 
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateProductSaleInfo(@RequestBody ProductSaleInfo productSaleInfo,@PathVariable Long id)
+    @PutMapping("/productsales/{id}")
+    public ResponseEntity<Object> upCalendarProductSaleInfo(@RequestBody ProductSaleInfo productSaleInfo,@PathVariable Long id)
     {
         ProductSaleInfo psi = productSaleRepository.findProductSaleInfoById(id);
         productSaleRepository.save(productSaleInfo);
