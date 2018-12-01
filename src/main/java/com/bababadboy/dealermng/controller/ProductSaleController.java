@@ -56,7 +56,7 @@ public class ProductSaleController {
 
 
     @PutMapping("/productsales/{id}")
-    public ResponseEntity<Object> upCalendarProductSaleInfo(@RequestBody ProductSaleInfo productSaleInfo,@PathVariable Long id)
+    public ResponseEntity<Object> updateProductSaleInfo(@RequestBody ProductSaleInfo productSaleInfo,@PathVariable Long id)
     {
         ProductSaleInfo psi = productSaleRepository.findProductSaleInfoById(id);
         productSaleRepository.save(productSaleInfo);
