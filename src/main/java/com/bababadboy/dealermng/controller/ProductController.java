@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.Iterator;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.Optional;
  * @author wangxiaobin
  * @date 2018-11-19 下午7:18
  */
-
+@Transactional
 @RestController
 public class ProductController{
     @Autowired

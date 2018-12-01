@@ -6,6 +6,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
+/**
+ * @author wangxiaobin
+ */
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
@@ -17,4 +22,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
     @Override
     <S extends Product> S saveAndFlush(S entity);
+
+    @Override
+    Optional<Product> findById(Long aLong);
 }
