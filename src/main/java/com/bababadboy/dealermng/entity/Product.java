@@ -37,7 +37,7 @@ public class Product implements Serializable {
     * 轮播图列表
     * */
 
-    @ElementCollection(targetClass=String.class)
+    @ElementCollection(targetClass=String.class,fetch = FetchType.EAGER)
     @CollectionTable(name="carousel_images", joinColumns=@JoinColumn(name="id" , nullable=false))
     @Column(name="images_url")
     @OrderColumn(name="images_order")
@@ -51,7 +51,7 @@ public class Product implements Serializable {
     * 详情图列表
     * */
 
-    @ElementCollection(targetClass=String.class)
+    @ElementCollection(targetClass=String.class,fetch = FetchType.EAGER)
     @CollectionTable(name="detail_images", joinColumns=@JoinColumn(name="id" , nullable=false))
     @Column(name="images_url")
     @OrderColumn(name="images_order")
