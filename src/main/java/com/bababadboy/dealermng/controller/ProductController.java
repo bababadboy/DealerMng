@@ -23,18 +23,16 @@ import java.util.Optional;
 
 @RestController
 public class ProductController{
+    private final ProductRepository productRepository;
+
     @Autowired
-    private ProductRepository productRepository;
+    public ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @GetMapping(value = "/products")
     public List<Product> retrieveAllProducts() {
         List<Product> list = productRepository.findAll();
-        /*for (Iterator<Product> it = list.iterator(); it.hasNext();){
-            Product p = it.next();
-            System.out.println(p.toString());
-            System.out.println("p是:"+JSON.toJSONString(p));
-
-        }*/
         String string = JSON.toJSONString(list);
         return list;
 
@@ -76,16 +74,5 @@ public class ProductController{
         productRepository.save(p);
 
         return ResponseEntity.noContent().build();
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String demo() {
-        /*String[] strings = new String[3];
-        strings[0] = "demo1";
-        strings[1] = "demo2";
-        strings[2] = "demo3";
-        String json = JSON.toJSONString(strings);
-        return json;*/
-        return "test";
     }
 }
