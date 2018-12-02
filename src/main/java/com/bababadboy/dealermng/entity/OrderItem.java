@@ -42,13 +42,11 @@ public class OrderItem implements Serializable {
 
     // 商品总价
     @Column(precision = 10, scale = 2, nullable = false)
-    @Type(type = "big_decimal")
-    private double productTotalPrice;
+    private Double productTotalPrice;
 
     // 订单金额
     @Column(precision = 10, scale = 2, nullable = false)
-    @Type(type = "big_decimal")
-    private double orderTotalPrice;
+    private Double orderTotalPrice;
 
     // 联系电话
     @Column(nullable = false)
@@ -82,6 +80,24 @@ public class OrderItem implements Serializable {
     private String note;
 
     protected OrderItem() {}
+
+    public OrderItem(String orderNo, Dealer dealer, String orderStatus, String orderPaymentMethod, Long productQuantity, Double productTotalPrice, Double orderTotalPrice, String phone, String address, String expressNumber, Date orderedAt, Date paidAt, Date deliveredAt, Date completedAt, String note) {
+        this.orderNo = orderNo;
+        this.dealer = dealer;
+        this.orderStatus = orderStatus;
+        this.orderPaymentMethod = orderPaymentMethod;
+        this.productQuantity = productQuantity;
+        this.productTotalPrice = productTotalPrice;
+        this.orderTotalPrice = orderTotalPrice;
+        this.phone = phone;
+        this.address = address;
+        this.expressNumber = expressNumber;
+        this.orderedAt = orderedAt;
+        this.paidAt = paidAt;
+        this.deliveredAt = deliveredAt;
+        this.completedAt = completedAt;
+        this.note = note;
+    }
 
     /* getter and setter */
 
@@ -133,19 +149,19 @@ public class OrderItem implements Serializable {
         this.productQuantity = productQuantity;
     }
 
-    public double getProductTotalPrice() {
+    public Double getProductTotalPrice() {
         return productTotalPrice;
     }
 
-    public void setProductTotalPrice(double productTotalPrice) {
+    public void setProductTotalPrice(Double productTotalPrice) {
         this.productTotalPrice = productTotalPrice;
     }
 
-    public double getOrderTotalPrice() {
+    public Double getOrderTotalPrice() {
         return orderTotalPrice;
     }
 
-    public void setOrderTotalPrice(double orderTotalPrice) {
+    public void setOrderTotalPrice(Double orderTotalPrice) {
         this.orderTotalPrice = orderTotalPrice;
     }
 
