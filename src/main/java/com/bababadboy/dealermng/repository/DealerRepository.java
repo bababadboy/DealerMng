@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @author Ash
  */
-public interface DealerRepository extends JpaRepository<Dealer, Long> {
+public interface DealerRepository extends JpaRepository<Dealer, Long>{
 
 }

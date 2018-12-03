@@ -16,8 +16,9 @@ import java.util.List;
  */
 @RestController
 public class DealerController {
+    /*
     @Autowired
-    private DealerService dealerService;
+    private DealerService dealerService;*/
 
     @Autowired
     private DealerRepository dealerRepository;
