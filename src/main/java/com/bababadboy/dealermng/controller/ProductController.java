@@ -3,7 +3,13 @@ package com.bababadboy.dealermng.controller;
 import com.bababadboy.dealermng.entity.Product;
 import com.bababadboy.dealermng.repository.ProductRepository;
 //import com.sun.javafx.collections.MappingChange;
+import com.bababadboy.dealermng.service.ProductQueryService;
+import com.bababadboy.dealermng.service.ProductQueryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.*;
@@ -29,30 +35,39 @@ public class ProductController{
 
     @Autowired
     private ProductRepository productRepository;
-    @Autowired
-
-
-
+    private ProductQueryServiceImpl productQueryService;
+    /**
     @GetMapping(value = "/products")
     public Object retrieveAllProducts() {
-        List<Product> list = productRepository.findAll();
-        /*for (Iterator<Product> it = list.iterator(); it.hasNext();){
-            Product p = it.next();
-            System.out.println(p.toString());
-            System.out.println("p是:"+JSON.toJSONString(p));
 
-        }*/
+        List<Product> list = productRepository.findAll();
         Object object = JSON.toJSON(list);
         return object;
 
+    }*/
+
+    /**
+     * 产品列表分页查询
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/products",method = RequestMethod.GET)
+    public Page<Product> retrieveAllProducts(@RequestParam(value = "page", defaultValue = "0") Integer page ,
+                                             @RequestParam(value = "size", defaultValue = "15")  Integer size){
+
+
+//        Sort sort = new Sort(Sort.Direction.DESC," id");
+//        Pageable pageable = PageRequest.of(page, size, sort);
+//        Page <Product> p = productQueryService.findProductNoCriteria(page,size);
+        return productQueryService.findProductNoCriteria(page,size);
     }
 
     @GetMapping(value = "/products/{id}")
     public Object retrieveProduct(@PathVariable("id") long id) {
 
         Optional<Product> product = productRepository.findById(id);
-        Object object = JSON.toJSON(product);
-        return object;
+        return JSON.toJSON(product);
     }
 
     @RequestMapping(value = "/products/{id}",method = RequestMethod.DELETE)
@@ -88,9 +103,8 @@ public class ProductController{
 
         if (p.isPresent()){
             p.get().setId(id);
+            productRepository.save(p.get());
         }
-        productRepository.save(p.get());
-
         return ResponseEntity.noContent().build();
     }
 
