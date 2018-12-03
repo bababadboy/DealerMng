@@ -10,8 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
-import java.util.*;
 
 /**
  * @author Ash
@@ -30,4 +28,5 @@ public class DealerServiceImpl implements DealerService {
         Pageable pageable = PageRequest.of(page, size);
         return dealerRepository.findAll(pageable);
     }
+
 }

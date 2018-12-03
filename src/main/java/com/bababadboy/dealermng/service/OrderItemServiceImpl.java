@@ -1,7 +1,12 @@
 package com.bababadboy.dealermng.service;
 
+import com.bababadboy.dealermng.entity.Dealer;
+import com.bababadboy.dealermng.entity.OrderItem;
 import com.bababadboy.dealermng.repository.OrderItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,7 +14,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrderItemServiceImpl implements OrderItemService {
+    private final OrderItemRepository orderItemRepository;
+
     @Autowired
-    private OrderItemRepository orderItemRepository;
+    public OrderItemServiceImpl(OrderItemRepository orderItemRepository) {
+        this.orderItemRepository = orderItemRepository;
+    }
+
+    @Override
+    public Page<OrderItem> listOrdersByPage(Integer page, Integer size, Dealer dealer) {
+        Pageable pageable = PageRequest.of(page, size);
+        return orderItemRepository.findAllByDealer(pageable, dealer);
+    }
 
 }
