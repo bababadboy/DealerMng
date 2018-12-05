@@ -1,25 +1,24 @@
 package com.bababadboy.dealermng.service;
 
+import com.alibaba.fastjson.JSON;
 import com.bababadboy.dealermng.entity.Product;
 import com.bababadboy.dealermng.repository.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import java.util.List;
+import java.util.Optional;
 
 /**
+ * 实现ProductQueryService接口
  * @author wangxiaobin
- * @description: 实现ProductQueryService接口
- * @create 2018-12-03 下午11:31
  */
-public class ProductQueryServiceImpl implements ProductQueryService{
+@Service
+public class ProductServiceImpl implements ProductService {
 
     @Resource
     private ProductRepository productRepository;
@@ -31,19 +30,12 @@ public class ProductQueryServiceImpl implements ProductQueryService{
         return productRepository.findAll(pageable);
     }
 
-    /**
-     * 分页条件查询
-     * @param page
-     * @param size
-     * @param product
-     * @return
-     */
     @Override
     public Page<Product> findProductCriteria(Integer page, Integer size, Product product) {
 
-        Sort sort = new Sort(Sort.Direction.DESC," id");
+/*        Sort sort = new Sort(Sort.Direction.DESC," id");
         Pageable pageable = PageRequest.of(page, size, sort);
-/*
+
         Page<Product> productPage = productRepository.findAll(new Specification<Product>(){
             @Override
             public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
@@ -55,5 +47,26 @@ public class ProductQueryServiceImpl implements ProductQueryService{
             }
         },pageable);*/
         return null;//TODO
+    }
+
+    @Override
+    public List<Product> retrieveAllProducts() {
+
+        return productRepository.findAll();
+    }
+
+    @Override
+    public Optional<Product> retrieveProduct(long id) {
+
+        return productRepository.findById(id);
+    }
+
+    @Override
+    public void updateProduct(Product product,long id) {
+
+        Optional<Product> p = productRepository.findById(id);
+        if (p.isPresent()){
+            productRepository.save(product);
+        }
     }
 }
