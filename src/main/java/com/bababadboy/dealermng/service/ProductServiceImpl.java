@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> findProductNoCriteria(Integer page, Integer size) {
 
-        Sort sort = new Sort(Sort.Direction.DESC," id");
+        Sort sort = new Sort(Sort.Direction.DESC,"id");
         Pageable pageable = PageRequest.of(page, size, sort);
         return productRepository.findAll(pageable);
     }
