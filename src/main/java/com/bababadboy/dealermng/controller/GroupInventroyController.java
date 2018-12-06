@@ -21,7 +21,7 @@ public class GroupInventroyController {
 
         return list;
     }
-    
+
 
 
 }

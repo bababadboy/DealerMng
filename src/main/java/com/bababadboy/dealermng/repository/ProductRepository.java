@@ -13,9 +13,8 @@ import java.util.Optional;
  */
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product,Long> {
-
-    Product findById(long id);
+public interface ProductRepository extends JpaRepository<Product,Long>,
+        ProductRepoCustom<Product,Long> {
 
     @Override
     List<Product> findAll();
@@ -25,4 +24,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
     @Override
     Optional<Product> findById(Long aLong);
+
+    @Override
+    <S extends Product> S save(S entity);
 }
