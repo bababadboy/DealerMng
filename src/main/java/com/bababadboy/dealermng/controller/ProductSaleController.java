@@ -24,7 +24,7 @@ public class ProductSaleController {
     @Autowired
     private ProductSaleRepository productSaleRepository;
 
-    @GetMapping(value="/productsales")
+    @GetMapping(value="/productSales")
     public Object all()
     {
        // System.out.println("get all");
@@ -33,7 +33,7 @@ public class ProductSaleController {
         return psList;
     }
 
-    @GetMapping(value = "/productsales/{id}")
+    @GetMapping(value = "/productSales/{id}")
     public Object getSaleInfoById(@PathVariable("id") Long id){
         //System.out.println("get id");
         ProductSaleInfo psi= productSaleRepository.findProductSaleInfoById(id);
@@ -41,12 +41,12 @@ public class ProductSaleController {
         return psi;
     }
 
-    @RequestMapping(value = "/productsales/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/productSales/{id}",method = RequestMethod.DELETE)
     public void deleteSaleInfo(@PathVariable("id") Long id){
         productSaleRepository.deleteById(id);
     }
 
-    @RequestMapping(value = "/productsales",method = RequestMethod.POST)
+    @RequestMapping(value = "/productSales",method = RequestMethod.POST)
     public ResponseEntity<ProductSaleInfo> createSaleInfo(@RequestBody ProductSaleInfo psiBody){
         ProductSaleInfo savePS = productSaleRepository.save(psiBody);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -55,7 +55,7 @@ public class ProductSaleController {
     }
 
 
-    @PutMapping("/productsales/{id}")
+    @PutMapping("/productSales/{id}")
     public ResponseEntity<Object> updateProductSaleInfo(@RequestBody ProductSaleInfo productSaleInfo,@PathVariable Long id)
     {
         ProductSaleInfo psi = productSaleRepository.findProductSaleInfoById(id);

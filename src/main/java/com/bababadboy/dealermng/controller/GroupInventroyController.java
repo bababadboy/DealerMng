@@ -15,10 +15,13 @@ public class GroupInventroyController {
     @Autowired
     private GroupInventoryReposity groupInventoryReposity;
 
-    @GetMapping(value = "/groupinventories")
+    @GetMapping(value = "/groupInventory")
     public List<GroupInventory>  retrieveAllInventory(){
         List<GroupInventory> list = groupInventoryReposity.findAll();
 
         return list;
     }
+    
+
+
 }
