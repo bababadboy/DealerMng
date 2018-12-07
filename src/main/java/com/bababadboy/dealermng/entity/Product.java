@@ -5,6 +5,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * 产品实体类
+ * @author wangxiaobin
+ */
 @Entity
 @Table(name = "product")
 public class Product implements Serializable {
@@ -31,15 +36,29 @@ public class Product implements Serializable {
     /*
     * 轮播图列表
     * */
-    @ElementCollection
-    private List<String> imageUrl = new ArrayList<>();
+
+    @ElementCollection(targetClass=String.class,fetch = FetchType.EAGER)
+    @CollectionTable(name="carousel_images", joinColumns=@JoinColumn(name="id" , nullable=false))
+    @Column(name="images_url")
+    @OrderColumn(name="images_order")
+    private List<String> carouseImages;
+
+    /*@ElementCollection
+    private List<String> imageUrl = new ArrayList<>();*/
 
 
     /*
     * 详情图列表
     * */
-    @ElementCollection
-    private List<String> detailImages = new ArrayList<>();
+
+    @ElementCollection(targetClass=String.class,fetch = FetchType.EAGER)
+    @CollectionTable(name="detail_images", joinColumns=@JoinColumn(name="id" , nullable=false))
+    @Column(name="images_url")
+    @OrderColumn(name="images_order")
+    private List<String> detailImages;
+
+    /*@ElementCollection
+    private List<String> detailImages = new ArrayList<>();*/
 
     /**
      * 构造函数
@@ -47,7 +66,9 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String no, String name, int stock, int version, String categories, String description, double price, List<String> imageUrl, List<String> detailImages) {
+    public Product(String no, String name, int stock, int version,
+                   String categories, String description, double price,
+                   List<String> carouseImages, List<String> detailImages) {
         this.no = no;
         this.name = name;
         this.stock = stock;
@@ -55,7 +76,7 @@ public class Product implements Serializable {
         this.categories = categories;
         this.description = description;
         this.price = price;
-        this.imageUrl = imageUrl;
+        this.carouseImages = carouseImages;
         this.detailImages = detailImages;
     }
 
@@ -124,12 +145,12 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public List<String> getImageUrl() {
-        return imageUrl;
+    public List<String> getCarouseImages() {
+        return carouseImages;
     }
 
-    public void setImageUrl(List<String> imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setCarouseImages(List<String> carouseImages) {
+        this.carouseImages = carouseImages;
     }
 
     public List<String> getDetailImages() {
@@ -139,5 +160,4 @@ public class Product implements Serializable {
     public void setDetailImages(List<String> detailImages) {
         this.detailImages = detailImages;
     }
-
 }

@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DealerRepository extends JpaRepository<Dealer, Long> {
-
 }
