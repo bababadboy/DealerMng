@@ -1,8 +1,9 @@
-package com.bababadboy.dealermng.service;
+package com.bababadboy.dealermng.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.bababadboy.dealermng.entity.Product;
 import com.bababadboy.dealermng.repository.ProductRepository;
+import com.bababadboy.dealermng.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

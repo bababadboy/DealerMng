@@ -1,21 +1,20 @@
 package com.bababadboy.dealermng.controller;
 
+import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.bababadboy.dealermng.entity.Product;
 import com.bababadboy.dealermng.repository.ProductRepository;
 //import com.sun.javafx.collections.MappingChange;
-import com.bababadboy.dealermng.service.ProductServiceImpl;
+import com.bababadboy.dealermng.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import springfox.documentation.spring.web.json.Json;
 
 import javax.transaction.Transactional;
 import java.net.URI;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * 描述:
@@ -41,6 +40,18 @@ public class ProductController{
     }
 
     /**
+     * json过滤器:自定义想要过滤掉的属性
+     */
+    private static JSON toJSON(Object o,String... excludeKeys){
+
+        List<String> excludesList = Arrays.asList(excludeKeys);
+        SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
+        filter.getExcludes().addAll(excludesList);
+
+        return JSON.parseObject(JSON.toJSONString(o,filter));
+    }
+
+    /**
      * 产品列表分页查询
      * @param page 0
      * @param size 15
@@ -62,7 +73,7 @@ public class ProductController{
     public Object retrieveProduct(@PathVariable("id") long id) {
 
         Optional<Product> product = productQueryService.retrieveProduct(id);
-        return JSON.toJSON(product);
+        return toJSON(product,"id");
     }
 
     @RequestMapping(value = "/products/{id}",method = RequestMethod.DELETE)
@@ -98,15 +109,4 @@ public class ProductController{
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public String demo() {
-        /*String[] strings = new String[3];
-        strings[0] = "demo1";
-        strings[1] = "demo2";
-        strings[2] = "demo3";
-        String json = JSON.toJSONString(strings);
-        return json;*/
-
-        return "test";
-    }
 }

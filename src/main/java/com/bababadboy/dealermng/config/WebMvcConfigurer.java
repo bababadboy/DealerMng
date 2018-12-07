@@ -4,7 +4,10 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +16,14 @@ import java.util.List;
  * 自定义配置
  * @author Ash
  */
+
+/*
+解决swagger-ui 404的问题,
 @Configuration
+@EnableWebMvc
+*/
 public class WebMvcConfigurer extends WebMvcConfigurationSupport {
+
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
@@ -22,7 +31,8 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
         //FastJsonConfig config = new FastJsonConfig();
         //config.set ...
         //converter.setFastJsonConfig(config);
-        /**
+
+        /*
          * 解决报错：
          * Content-Type' cannot contain wildcard type '*'
          */
@@ -47,4 +57,6 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
         converter.setSupportedMediaTypes(supportedMediaTypes);
         converters.add(0, converter);
     }
+
+
 }
