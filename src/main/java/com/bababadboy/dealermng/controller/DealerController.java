@@ -62,6 +62,8 @@ public class DealerController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> createDealer(@RequestBody Dealer dealer) {
         // TODO dealer parameter check
+        Date date = new Date();
+        dealer.setRegisterAt(date);
         dealerRepository.save(dealer);
         return new ResponseEntity<>("dealer created", HttpStatus.CREATED);
     }

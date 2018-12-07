@@ -1,10 +1,13 @@
 package com.bababadboy.dealermng.entity;
 
-import org.hibernate.annotations.Type;
+import com.bababadboy.dealermng.pojo.Address;
+import com.bababadboy.dealermng.pojo.OrderStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 订单实体类
@@ -30,19 +33,16 @@ public class OrderItem implements Serializable {
 
     // 订单状态
     @Column(nullable = false)
-    private String orderStatus;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 
     // 订单结算方式
     @Column(nullable = false)
     private String orderPaymentMethod;
 
-    // 商品数量
-    @Column(nullable = false)
-    private Long productQuantity;
-
-    // 商品总价
-    @Column(precision = 10, scale = 2, nullable = false)
-    private Double productTotalPrice;
+    // 订单细节
+    @OneToMany(mappedBy = "orderItem")
+    private List<OrderDetail> orderDetails;
 
     // 订单金额
     @Column(precision = 10, scale = 2, nullable = false)
@@ -54,7 +54,7 @@ public class OrderItem implements Serializable {
 
     // 收货地址
     @Column(nullable = false)
-    private String address;
+    private Address address;
 
     // 快递单号
     private String expressNumber;
@@ -79,25 +79,8 @@ public class OrderItem implements Serializable {
     // 订单备注
     private String note;
 
-    protected OrderItem() {}
 
-    public OrderItem(String orderNo, Dealer dealer, String orderStatus, String orderPaymentMethod, Long productQuantity, Double productTotalPrice, Double orderTotalPrice, String phone, String address, String expressNumber, Date orderedAt, Date paidAt, Date deliveredAt, Date completedAt, String note) {
-        this.orderNo = orderNo;
-        this.dealer = dealer;
-        this.orderStatus = orderStatus;
-        this.orderPaymentMethod = orderPaymentMethod;
-        this.productQuantity = productQuantity;
-        this.productTotalPrice = productTotalPrice;
-        this.orderTotalPrice = orderTotalPrice;
-        this.phone = phone;
-        this.address = address;
-        this.expressNumber = expressNumber;
-        this.orderedAt = orderedAt;
-        this.paidAt = paidAt;
-        this.deliveredAt = deliveredAt;
-        this.completedAt = completedAt;
-        this.note = note;
-    }
+    public OrderItem() {}
 
     /* getter and setter */
 
@@ -125,14 +108,6 @@ public class OrderItem implements Serializable {
         this.dealer = dealer;
     }
 
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
     public String getOrderPaymentMethod() {
         return orderPaymentMethod;
     }
@@ -141,20 +116,12 @@ public class OrderItem implements Serializable {
         this.orderPaymentMethod = orderPaymentMethod;
     }
 
-    public Long getProductQuantity() {
-        return productQuantity;
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setProductQuantity(Long productQuantity) {
-        this.productQuantity = productQuantity;
-    }
-
-    public Double getProductTotalPrice() {
-        return productTotalPrice;
-    }
-
-    public void setProductTotalPrice(Double productTotalPrice) {
-        this.productTotalPrice = productTotalPrice;
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
     public Double getOrderTotalPrice() {
@@ -171,14 +138,6 @@ public class OrderItem implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getExpressNumber() {
@@ -227,5 +186,21 @@ public class OrderItem implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }

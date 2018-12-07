@@ -17,4 +17,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
     @Override
     <S extends Product> S saveAndFlush(S entity);
+
+    Product findByNo(String no);
 }

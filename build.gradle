@@ -67,4 +67,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.0.RELEASE'
 
+    // 添加 Spring Boot Redis starter 依赖
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.1.0.RELEASE'
+
 }
