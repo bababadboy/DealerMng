@@ -1,4 +1,4 @@
-package com.bababadboy.dealermng.entity;
+package com.bababadboy.dealermng.pojo;
 
 /**
  * 性别枚举

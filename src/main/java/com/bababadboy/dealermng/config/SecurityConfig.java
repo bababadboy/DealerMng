@@ -25,9 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/*").permitAll();
         http.csrf().disable();
-
-
-
     }
 
     /**
@@ -39,7 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         super.configure(web);
         web.ignoring().antMatchers("/v2/api-docs/**", "/configuration/ui", "/swagger.json", "/configuration/security", "/swagger-ui.html", "/webjars/**");
-
     }
     // @Autowired
     // private UserDetailsService userDetailsService;

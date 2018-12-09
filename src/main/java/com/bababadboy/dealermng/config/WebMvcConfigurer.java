@@ -22,16 +22,14 @@ import java.util.List;
 @Configuration
 @EnableWebMvc
 */
+@Configuration
+@EnableWebMvc
 public class WebMvcConfigurer extends WebMvcConfigurationSupport {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        super.configureMessageConverters(converters);
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
-        //自定义配置...
-        //FastJsonConfig config = new FastJsonConfig();
-        //config.set ...
-        //converter.setFastJsonConfig(config);
-
         /*
          * 解决报错：
          * Content-Type' cannot contain wildcard type '*'
