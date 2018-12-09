@@ -27,11 +27,7 @@ import java.util.*;
 public class ProductController{
     private final ProductRepository productRepository;
     private final ProductServiceImpl productQueryService;
-    /**
-     * 推荐注入方式，而非
-     * "@Autowired"
-     * private ProductRepository productRepository;
-     */
+
     @Autowired
     public ProductController(ProductRepository productRepository, ProductServiceImpl productQueryService) {
         this.productRepository = productRepository;

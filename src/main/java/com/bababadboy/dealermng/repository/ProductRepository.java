@@ -27,4 +27,11 @@ public interface ProductRepository extends JpaRepository<Product,Long>,
 
     @Override
     <S extends Product> S save(S entity);
+
+    /**
+     * 根据商品编号查找商品
+     * @param no 商品编号
+     * @return 商品详情
+     */
+    Optional<Product> findByNo(String no);
 }

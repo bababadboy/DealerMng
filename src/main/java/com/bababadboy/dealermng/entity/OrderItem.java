@@ -23,7 +23,7 @@ public class OrderItem implements Serializable {
     private Long id;
 
     // 订单编号
-    @Column(nullable = false, unique = true)
+    // @Column(nullable = false, unique = true)
     private String orderNo;
 
     // 经销商编号
@@ -37,7 +37,6 @@ public class OrderItem implements Serializable {
     private OrderStatus orderStatus;
 
     // 订单结算方式
-    @Column(nullable = false)
     private String orderPaymentMethod;
 
     // 订单细节
@@ -196,11 +195,11 @@ public class OrderItem implements Serializable {
         this.address = address;
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
+    public int getOrderStatus() {
+        return orderStatus.ordinal();
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setOrderStatus(int orderStatusOrdinal) {
+        this.orderStatus = OrderStatus.valueOf(orderStatusOrdinal);
     }
 }

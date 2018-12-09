@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bababadboy.dealermng.entity.Dealer;
 import com.bababadboy.dealermng.entity.OrderDetail;
 import com.bababadboy.dealermng.entity.OrderItem;
+import com.bababadboy.dealermng.entity.Product;
 import com.bababadboy.dealermng.pojo.OrderStatus;
 import com.bababadboy.dealermng.repository.DealerRepository;
 import com.bababadboy.dealermng.repository.OrderDetailRepository;
@@ -46,7 +47,7 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> listOrdersByDealerId(@RequestParam("page") Integer page,
+    public ResponseEntity<?> listOrdersByDealerId(@RequestParam(value = "page", defaultValue = "0") Integer page,
                                         @RequestParam("dealerId") Long dealerId) {
         Optional<Dealer> dealer = dealerRepository.findById(dealerId);
         if (!dealer.isPresent()) {
@@ -58,16 +59,25 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> createOrder(@RequestBody OrderItem orderItem) {
-        orderItem.setOrderStatus(OrderStatus.unPaid);
+        List<OrderDetail> orderDetails = new ArrayList<>(orderItem.getOrderDetails().size());
+        orderItem.setOrderStatus(0);
         orderItem.setOrderedAt(new Date());
         double totalPrice = 0.0D;
         for (OrderDetail od : orderItem.getOrderDetails()) {
-            double price = od.getAmount() * od.getProduct().getPrice();
+            Optional<Product> product = productRepository.findByNo(od.getProduct().getNo());
+            double price = od.getAmount() * product.get().getPrice();
             od.setSum(price);
+            od.setProduct(product.get());
             totalPrice += price;
+            orderDetails.add(od);
         }
+        orderItem.setOrderDetails(orderDetails);
         orderItem.setOrderTotalPrice(totalPrice);
         OrderItem order = orderItemRepository.save(orderItem);
+        for(OrderDetail od : orderDetails) {
+            od.setOrderItem(order);
+        }
+        orderDetailRepository.saveAll(orderDetails);
         Map<String, Object> map = new HashMap<>(3);
         map.put("id", order.getId());
         map.put("orderedAt", order.getOrderedAt());

@@ -31,5 +31,12 @@ public enum OrderStatus {
         return value;
     }
 
+    public static OrderStatus valueOf(int ordinal) {
+        if (ordinal < 0 || ordinal >= values().length) {
+            throw new IndexOutOfBoundsException("invalid oridinal");
+        }
+        return values()[ordinal];
+    }
+
 }
 

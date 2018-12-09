@@ -1,5 +1,7 @@
 package com.bababadboy.dealermng.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import javax.persistence.*;
 
 /**
@@ -15,6 +17,7 @@ public class OrderDetail {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @JSONField(serialize = false)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_item_id")
     private OrderItem orderItem;
