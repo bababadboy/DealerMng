@@ -48,6 +48,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         chain.doFilter(req, res);
     }
 
+    /**
+     * reads the JWT from the Authorization header, and then uses JWT to validate the token.
+     * If everything is in place, we set the user in the SecurityContext and allow the request to move on.
+     */
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {

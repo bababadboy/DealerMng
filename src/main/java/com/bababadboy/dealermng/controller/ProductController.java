@@ -25,14 +25,9 @@ import java.util.*;
 @Transactional
 @RestController
 public class ProductController{
-
     private final ProductRepository productRepository;
     private final ProductServiceImpl productQueryService;
-    /**
-     * 推荐注入方式，而非
-     * "@Autowired"
-     * private ProductRepository productRepository;
-     */
+
     @Autowired
     public ProductController(ProductRepository productRepository, ProductServiceImpl productQueryService) {
         this.productRepository = productRepository;
@@ -47,7 +42,6 @@ public class ProductController{
         List<String> excludesList = Arrays.asList(excludeKeys);
         SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
         filter.getExcludes().addAll(excludesList);
-
         return JSON.parseObject(JSON.toJSONString(o,filter));
     }
 
@@ -58,15 +52,9 @@ public class ProductController{
      * @return Page<Product>
      */
     @RequestMapping(value = "/products",method = RequestMethod.GET)
-    public Page<Product> retrieveAllProducts(@RequestParam(value = "page", defaultValue = "0") Integer page ,
-                                             @RequestParam(value = "size", defaultValue = "15")  Integer size){
-
-        /*
-        Sort sort = new Sort(Sort.Direction.DESC," id");
-        Pageable pageable = PageRequest.of(page, size, sort);
-        Page <Product> p = productQueryService.findProductNoCriteria(page,size);
-        */
-        return productQueryService.findProductNoCriteria(page,size);
+    public Object retrieveAllProducts(@RequestParam(value = "page", defaultValue = "0") Integer page ,
+                                             @RequestParam(value = "size", defaultValue = "15") Integer size){
+        return productQueryService.findProductNoCriteria(page,size).getContent();
     }
 
     @GetMapping(value = "/products/{id}")
@@ -92,12 +80,10 @@ public class ProductController{
         return ResponseEntity.created(location).build();
     }
 
-
     @RequestMapping(value = "/products/{id}",method = RequestMethod.PATCH)
     public ResponseEntity<?> updateProduct(//TODO patch未完成
             @PathVariable long id, @RequestBody Map<String,Object> updates){
 
-//        productRepository.save(updates);
         return ResponseEntity.ok("Updated product successfully.");
 
     }
@@ -108,5 +94,4 @@ public class ProductController{
         productQueryService.updateProduct(product,id);
         return ResponseEntity.noContent().build();
     }
-
 }

@@ -29,11 +29,6 @@ public class UserController {
     public UserController() {
 
     }
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
 
     @PostMapping("/sign-up")
     public void signUp(@RequestBody ApplicationUser user) {

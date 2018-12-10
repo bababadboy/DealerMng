@@ -6,6 +6,7 @@ import com.bababadboy.dealermng.security.JWTAuthorizationFilter;
 import com.bababadboy.dealermng.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsServiceImpl userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
     public SecurityConfig(UserDetailsServiceImpl userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -53,22 +55,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * 解决There is no PasswordEncoder mapped for the id “null” 报错
      * @return PasswordEncoder
      */
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-
-        return new BCryptPasswordEncoder();
-    }
-
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
-    }
-
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//
+//        return new BCryptPasswordEncoder();
+//    }
 
     /**
-     * 控制不同角色可以访问的资源
-     * @param http HttpSecurity类
-     * @throws Exception 异常
+     * define which resources are public and which are secured.
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -83,14 +77,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//                .antMatchers("/products/**").authenticated()
-//                .antMatchers("/api/admin/**").hasRole("ADMIN")  // 管理员权限
-//                .and()
-//                .formLogin()
-//                .and()
-//                .logout();
     }
 
+    /**
+     * load user-specific data in the security framework
+     * ERROR: Error creating bean with name 'springSecurityFilterChain' passwrodEncoder cannot be null
+     * 暂时先注释掉
+     */
+//    @Override
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+//    }
+
+    /**
+     * allow/restrict our CORS support.
+     * Left it wide open by permitting requests from any source (/**).
+     */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -100,15 +102,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 解决swagger-ui.html显示"404
-     * @param web weSecurity
-     * @throws Exception 异常
      */
-    @Override
-    public void configure(WebSecurity web) throws Exception {
 
-        web.ignoring().antMatchers("/v2/api-docs/**", "/configuration/ui", "/swagger.json", "/configuration/security", "/swagger-ui.html", "/webjars/**");
-
-    }
     // @Autowired
     // private UserDetailsService userDetailsService;
 

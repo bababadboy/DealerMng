@@ -15,7 +15,6 @@ import static java.util.Collections.emptyList;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-
     private ApplicationUserRepository applicationUserRepository;
 
     public UserDetailsServiceImpl(ApplicationUserRepository applicationUserRepository) {
