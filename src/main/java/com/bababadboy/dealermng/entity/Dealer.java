@@ -1,5 +1,8 @@
 package com.bababadboy.dealermng.entity;
 
+import com.bababadboy.dealermng.pojo.Address;
+import com.bababadboy.dealermng.pojo.Gender;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -30,9 +33,9 @@ public class Dealer implements Serializable {
     private String phone;
 
     // 经销商联系地址
-    @Lob
     @Column(nullable = false)
-    private String address;
+    @Embedded
+    private Address address;
 
     // 经销商信用等级
     @Column(nullable = false)
@@ -59,6 +62,18 @@ public class Dealer implements Serializable {
      * Constructor
      */
     public Dealer() {
+    }
+
+    public Dealer(String name, Gender gender, String phone, Address address, Integer credit, String area, Date registerAt, Date expiredAt, String note) {
+        this.name = name;
+        this.gender = gender;
+        this.phone = phone;
+        this.address = address;
+        this.credit = credit;
+        this.area = area;
+        this.registerAt = registerAt;
+        this.expiredAt = expiredAt;
+        this.note = note;
     }
 
     /**
@@ -104,11 +119,11 @@ public class Dealer implements Serializable {
         this.phone = phone;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 

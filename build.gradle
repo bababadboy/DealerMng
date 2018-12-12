@@ -63,11 +63,23 @@ dependencies {
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
 
-    // https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter
-    compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.5'
+    // 添加 Spring Boot Redis starter 依赖
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.1.0.RELEASE'
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.0.RELEASE'
-// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.0.RELEASE'
+
+    // https://mvnrepository.com/artifact/com.auth0/java-jwt
+    compile group: 'com.auth0', name: 'java-jwt', version: '3.4.0'
+
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
+
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.2'
+
+
+
+
 }
