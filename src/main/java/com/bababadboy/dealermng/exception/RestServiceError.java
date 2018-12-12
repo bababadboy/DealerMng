@@ -1,4 +1,4 @@
-package com.bababadboy.dealermng.util;
+package com.bababadboy.dealermng.exception;
 
 /**
  * @author Ash

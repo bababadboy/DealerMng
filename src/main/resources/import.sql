@@ -18,4 +18,4 @@ INSERT into carousel_images(images_order,id, images_url) VALUES(1,1,"http://gd1.
 INSERT into carousel_images(images_order,id, images_url) VALUES(2,1,"http://gd1.alicdn.com/imgextra/i1/355159670/TB2yzHhB49YBuNjy0FfXXXIsVXa_!!355159670.jpg");
 
 -- 登录用户信息表
-INSERT into application_user(username,password) VALUES ("rychou","rychou123");
+-- INSERT into application_user(username,password) VALUES ("rychou","rychou123");

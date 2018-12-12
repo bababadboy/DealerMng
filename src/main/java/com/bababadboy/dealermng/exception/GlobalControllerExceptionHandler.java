@@ -1,4 +1,4 @@
-package com.bababadboy.dealermng.util;
+package com.bababadboy.dealermng.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
