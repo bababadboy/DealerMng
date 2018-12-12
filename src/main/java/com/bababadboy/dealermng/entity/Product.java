@@ -1,5 +1,7 @@
 package com.bababadboy.dealermng.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.List;
 @Table(name = "product")
 public class Product implements Serializable {
 
+    @JSONField(serialize = false)
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -24,6 +24,7 @@ import java.util.*;
  */
 @Transactional
 @RestController
+@CrossOrigin(origins = "*")
 public class ProductController{
     private final ProductRepository productRepository;
     private final ProductServiceImpl productQueryService;
@@ -52,9 +53,9 @@ public class ProductController{
      * @return Page<Product>
      */
     @RequestMapping(value = "/products",method = RequestMethod.GET)
-    public Page<Product> retrieveAllProducts(@RequestParam(value = "page", defaultValue = "0") Integer page ,
+    public Object retrieveAllProducts(@RequestParam(value = "page", defaultValue = "0") Integer page ,
                                              @RequestParam(value = "size", defaultValue = "15") Integer size){
-        return productQueryService.findProductNoCriteria(page,size);
+        return productQueryService.findProductNoCriteria(page,size).getContent();
     }
 
     @GetMapping(value = "/products/{id}")
