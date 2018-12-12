@@ -22,6 +22,7 @@ public class Product implements Serializable {
     @JSONField(serialize = false)
     private Long id;
 
+    @Column(unique = true)
     private String no;
 
     private String name;

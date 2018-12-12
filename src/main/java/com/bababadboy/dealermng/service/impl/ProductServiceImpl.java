@@ -23,6 +23,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Resource
     private ProductRepository productRepository;
+
+    /**
+     * 产品列表（分页）
+     */
     @Override
     public Page<Product> findProductNoCriteria(Integer page, Integer size) {
 
@@ -50,16 +54,35 @@ public class ProductServiceImpl implements ProductService {
         return null;//TODO
     }
 
+    /**
+     * 产品列表（不分页）
+     */
     @Override
     public List<Product> retrieveAllProducts() {
 
         return productRepository.findAll();
     }
 
+    /**
+     * 根据no查询产品详情
+     */
+    public Optional<Product> retrieveProduct(String no){
+        return productRepository.findByNo(no);
+    }
+
+    /**
+     * 根据id查询产品详情
+     */
     @Override
     public Optional<Product> retrieveProduct(long id) {
-
         return productRepository.findById(id);
+    }
+
+    /**
+     * 根据no删除产品
+     */
+    public void deleteProduct(String no){
+        productRepository.deleteByNo(no);
     }
 
     @Override
