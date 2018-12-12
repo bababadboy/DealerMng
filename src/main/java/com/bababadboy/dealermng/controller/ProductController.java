@@ -54,8 +54,9 @@ public class ProductController{
     @RequestMapping(value = "/products",method = RequestMethod.GET)
     public Object retrieveAllProducts(@RequestParam(value = "page", defaultValue = "0") Integer page ,
                                              @RequestParam(value = "size", defaultValue = "15") Integer size){
-        return productQueryService.findProductNoCriteria(page,size).getContent();
+        return JSON.toJSON(productQueryService.findProductNoCriteria(page,size).getContent());
     }
+
 
     @GetMapping(value = "/products/{id}")
     public Object retrieveProduct(@PathVariable("id") long id) {
