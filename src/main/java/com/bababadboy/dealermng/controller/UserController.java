@@ -35,7 +35,7 @@ public class UserController {
         return userService.signUp(user);
     }
 
-    @PostMapping("/login/")
+    @PostMapping("/login")
     public String logIn(@RequestParam String username,@RequestParam String password){
         return userService.logIn(username,password);
     }
