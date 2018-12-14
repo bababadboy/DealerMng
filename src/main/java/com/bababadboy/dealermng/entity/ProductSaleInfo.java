@@ -17,6 +17,9 @@ public class ProductSaleInfo implements Serializable {
     @Column(name = "id",nullable = false)
     private  Long id;
 
+    @ManyToOne(cascade = CascadeType.ALL,optional = false)
+    @JoinColumn(name = "product_id")
+    Product product;
     //交易编号
     @Column(nullable = false,unique = true)
     private String tradeId;
@@ -69,6 +72,8 @@ public class ProductSaleInfo implements Serializable {
     //订单完成时间
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar orderFinishTime;
+
+
 
     //备注
     private String comment;
@@ -190,4 +195,15 @@ public class ProductSaleInfo implements Serializable {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+
 }
