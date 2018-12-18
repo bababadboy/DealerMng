@@ -15,7 +15,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Size(min = 4, max = 20, message = "Minimum username length: 4 characters")
+    @Size(min = 4, max = 255, message = "Minimum username length: 4 characters")
     @Column(nullable = false)
     private String username;
 
@@ -23,7 +23,7 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Size(min = 4, max = 16,message = "Minimum password length: 6 characters")
+    @Size(min = 6, message = "Minimum password length: 6 characters")
     @Column(nullable = false)
     private String password;
 

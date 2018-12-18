@@ -95,10 +95,13 @@ public class ProductController{
 
     }
 
-    @PutMapping("/products/{id}")
-    public ResponseEntity<Object> updateProduct(@RequestBody Product product, @PathVariable long id) {
+    /**
+     * 根据no修改商品信息
+     */
+    @PutMapping("/products/{no}")
+    public ResponseEntity<Object> updateProduct(@RequestBody Product product, @PathVariable String no) {
 
-        productService.updateProduct(product,id);
+        productService.updateProduct(product,no);
         return ResponseEntity.noContent().build();
     }
 }

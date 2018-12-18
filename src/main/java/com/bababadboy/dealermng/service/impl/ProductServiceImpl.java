@@ -85,6 +85,17 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteByNo(no);
     }
 
+    /**
+     * 根据no修改商品信息
+     */
+    public void updateProduct(Product p, String no){
+        Optional<Product> product = productRepository.findByNo(no);
+        if (product.isPresent()){
+            p.setNo(no);
+            productRepository.save(p);
+        }
+    }
+
     @Override
     public void updateProduct(Product product,long id) {
 
