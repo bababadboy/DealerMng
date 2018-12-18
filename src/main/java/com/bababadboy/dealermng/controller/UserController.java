@@ -1,5 +1,7 @@
 package com.bababadboy.dealermng.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.bababadboy.dealermng.dto.UserDataDTO;
 import com.bababadboy.dealermng.repository.UserRepository;
 import com.bababadboy.dealermng.entity.user.User;
@@ -36,8 +38,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String logIn(@RequestParam String username,@RequestParam String password){
-        return userService.logIn(username,password);
+    public Object logIn(@RequestParam String username,@RequestParam String password){
+        String token = userService.logIn(username,password);
+        UserDataDTO info = modelMapper.map(userService.search(username),UserDataDTO.class);
+        JSONObject result = new JSONObject();
+        result.put("userMsg",info);
+        result.put("accessToken",token);
+        return JSON.toJSON(result);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 只有admin才能有删除权限

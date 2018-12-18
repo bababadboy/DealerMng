@@ -4,6 +4,7 @@ import com.bababadboy.dealermng.entity.user.User;
 import com.bababadboy.dealermng.exception.CustomException;
 import com.bababadboy.dealermng.repository.UserRepository;
 import com.bababadboy.dealermng.security.JwtTokenProvider;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author wangxiaobin
@@ -28,12 +31,15 @@ public class UserService {
 
     private final AuthenticationManager authenticationManager;
 
+    private final ModelMapper modelMapper;
+
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
+        this.modelMapper = modelMapper;
     }
 
     /**
@@ -52,13 +58,29 @@ public class UserService {
     }
 
     /**
-     * 用户登录
+     * 用户登录,返回token
      */
     public String logIn(String username, String password) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            System.out.println("tocken是"+jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles()));
+            System.out.println("token是"+jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles()));
             return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+        } catch (AuthenticationException e) {
+            throw new CustomException("Invalid username or password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    /**
+     * 用户登录,返回token
+     */
+    public List<Object> logInAndReturnUserInfo(String username, String password) {
+        List<Object> list = new ArrayList<>();
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            System.out.println("token是"+jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles()));
+            list.add(userRepository.findByUsername(username));
+            list.add(jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles()));
+            return list;
         } catch (AuthenticationException e) {
             throw new CustomException("Invalid username or password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
         }
