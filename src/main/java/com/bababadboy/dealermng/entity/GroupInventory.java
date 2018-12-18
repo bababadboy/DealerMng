@@ -7,6 +7,7 @@ import java.io.Serializable;
 @Table(name = "group_inventory")
 public class GroupInventory implements Serializable {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",nullable = false)
@@ -16,7 +17,7 @@ public class GroupInventory implements Serializable {
     @JoinColumn(name = "group_warehouse_id")
     private GroupWarehouse groupWarehouse;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "product_id")
     private  Product product;
 

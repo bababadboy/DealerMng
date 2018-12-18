@@ -5,8 +5,10 @@ import com.bababadboy.dealermng.entity.ProductSaleInfo;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +23,9 @@ public interface ProductSaleRepository extends JpaRepository<ProductSaleInfo,Lon
     List<ProductSaleInfo> findAll();
     ProductSaleInfo findProductSaleInfoById(Long id);
 
+//    List<ProductSaleInfo> findProductSaleInfosByPaymentTime(Calendar payTime);
+
+    List<ProductSaleInfo> findProductSaleInfosByPaymentTimeGreaterThanEqual(Calendar payTime);
 
     @Override
     <S extends ProductSaleInfo> Page<S> findAll(Example<S> example, Pageable pageable);
