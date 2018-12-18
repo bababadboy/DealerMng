@@ -62,6 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/login").permitAll()
                 .antMatchers("/users/signup").permitAll()
                 .antMatchers("/h2-console/**/**").permitAll()
+                .antMatchers("/productSale/amount").permitAll()
+                .antMatchers("/produtSale/quantity").permitAll()
+                .antMatchers("/productSale/amount/category").permitAll()
                 // Disallow everything else..
                 .anyRequest().authenticated();
 
@@ -69,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.exceptionHandling().accessDeniedPage("/login");
 
         // Apply JWT
-        http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
+      //  http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
     }
 
