@@ -98,4 +98,18 @@ public class OrderController {
         orderItemRepository.save(JSON.toJavaObject(jsonObject, OrderItem.class));
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
+
+    /**
+     * 最近订单接口 by wxb
+     */
+    @RequestMapping(value = "recent",method = RequestMethod.GET)
+    public ResponseEntity<?> recentOrder(@RequestParam("dealerId") Long dealerId){
+        Optional<Dealer> dealer = dealerRepository.findById(dealerId);
+        if (!dealer.isPresent()) {
+            return new ResponseEntity<>("dealer not found", HttpStatus.BAD_REQUEST);
+        }
+        List<OrderItem> list = orderItemService.listRecentOrders(dealer.get());
+        return new ResponseEntity<>(JSON.toJSON(list), HttpStatus.OK);
+
+    }
 }

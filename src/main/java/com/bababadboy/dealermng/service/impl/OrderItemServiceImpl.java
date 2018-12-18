@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Ash
  */
@@ -28,4 +30,8 @@ public class OrderItemServiceImpl implements OrderItemService {
         return orderItemRepository.findAllByDealer(pageable, dealer);
     }
 
+    @Override
+    public List<OrderItem> listRecentOrders(Dealer dealer) {
+        return orderItemRepository.findTop10ByDealerOrderByPaidAtDesc(dealer);
+    }
 }

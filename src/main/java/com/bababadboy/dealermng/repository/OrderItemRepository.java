@@ -22,4 +22,9 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
      * @return 订单分页
      */
     Page<OrderItem> findAllByDealer(Pageable pageable, Dealer dealer);
+
+    /**
+     * 查询指定经销商的最近订单信息
+     */
+    List<OrderItem> findTop10ByDealerOrderByPaidAtDesc(Dealer dealer);
 }
