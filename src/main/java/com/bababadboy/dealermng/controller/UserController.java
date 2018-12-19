@@ -3,7 +3,6 @@ package com.bababadboy.dealermng.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bababadboy.dealermng.dto.UserDataDTO;
-import com.bababadboy.dealermng.repository.UserRepository;
 import com.bababadboy.dealermng.entity.user.User;
 import com.bababadboy.dealermng.service.impl.UserService;
 import io.swagger.annotations.ApiParam;

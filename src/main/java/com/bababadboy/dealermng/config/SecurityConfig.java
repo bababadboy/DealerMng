@@ -58,16 +58,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Entry points
-        http.authorizeRequests()
-                .antMatchers("/users/login").permitAll()
-                .antMatchers("/users/signup").permitAll()
-                .antMatchers("/products/**").permitAll()
-                .antMatchers("/h2-console/**/**").permitAll()
-                .antMatchers("/productSale/amount").permitAll()
-                .antMatchers("/produtSale/quantity").permitAll()
-                .antMatchers("/productSale/amount/category").permitAll()
-                // Disallow everything else..
-                .anyRequest().authenticated();
+//        http.authorizeRequests()
+//                .antMatchers("/users/login").permitAll()
+//                .antMatchers("/users/signup").permitAll()
+//                .antMatchers("/products/**").permitAll()
+//                .antMatchers("/h2-console/**/**").permitAll()
+//                .antMatchers("/productSale/amount").permitAll()
+//                .antMatchers("/produtSale/quantity").permitAll()
+//                .antMatchers("/productSale/amount/category").permitAll()
+//                .antMatchers("/stocks").permitAll()
+//                // Disallow everything else..
+//                .anyRequest().authenticated();
 
         // If a user try to access a resource without having enough permissions
         http.exceptionHandling().accessDeniedPage("/login");
