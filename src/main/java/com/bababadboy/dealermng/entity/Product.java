@@ -20,8 +20,10 @@ public class Product implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JSONField(serialize = false)
     private Long id;
 
+    @Column(unique = true)
     private String no;
 
     private String name;
@@ -71,7 +73,7 @@ public class Product implements Serializable {
 
     public Product(String no, String name, int stock, int version,
                    String categories, String description, double price,
-                   List<String> carouseImages, List<String> detailImages) {
+                   List<String> carouselImages, List<String> detailImages) {
         this.no = no;
         this.name = name;
         this.stock = stock;
@@ -79,7 +81,7 @@ public class Product implements Serializable {
         this.categories = categories;
         this.description = description;
         this.price = price;
-        this.carouselImages = carouseImages;
+        this.carouselImages = carouselImages;
         this.detailImages = detailImages;
     }
 
@@ -148,12 +150,12 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public List<String> getCarouseImages() {
+    public List<String> getCarouselImages() {
         return carouselImages;
     }
 
-    public void setCarouseImages(List<String> carouseImages) {
-        this.carouselImages = carouseImages;
+    public void setCarouselImages(List<String> carouselImages) {
+        this.carouselImages = carouselImages;
     }
 
     public List<String> getDetailImages() {

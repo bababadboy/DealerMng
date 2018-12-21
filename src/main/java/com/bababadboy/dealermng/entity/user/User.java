@@ -1,6 +1,7 @@
 package com.bababadboy.dealermng.entity.user;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -18,10 +19,11 @@ public class User {
     @Column(nullable = false)
     private String username;
 
+    @Email
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Size(min = 4, message = "Minimum password length: 6 characters")
+    @Size(min = 6, message = "Minimum password length: 6 characters")
     @Column(nullable = false)
     private String password;
 

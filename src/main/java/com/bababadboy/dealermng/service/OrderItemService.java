@@ -4,6 +4,8 @@ import com.bababadboy.dealermng.entity.Dealer;
 import com.bababadboy.dealermng.entity.OrderItem;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * @author Ash
  */
@@ -16,4 +18,6 @@ public interface OrderItemService {
      * @return 订单分页
      */
     Page<OrderItem> listOrdersByPage(Integer page, Integer size, Dealer dealer);
+
+    List<OrderItem> listRecentOrders(Dealer dealer);
 }

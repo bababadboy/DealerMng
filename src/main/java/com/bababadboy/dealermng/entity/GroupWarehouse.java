@@ -7,17 +7,28 @@ import java.io.Serializable;
 @Entity
 @Table(name ="group_warehouse")
 public class GroupWarehouse implements Serializable {
-
+    //
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",nullable = false)
     private Long id;
-
+//
     @Column(name = "warehouse_no",nullable = false,unique = true)
     private String warehouse_no;
 
     @Column(name = "address",nullable = false)
     private String address;
+
+    @Column(name = "warehouseName",nullable = false)
+    private String warehouseName;
+
+    public String getWarehouseName() {
+        return warehouseName;
+    }
+
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
+    }
 
     public GroupWarehouse() {
     }

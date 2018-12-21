@@ -6,8 +6,9 @@ import com.bababadboy.dealermng.repository.ProductRepository;
 //import com.sun.javafx.collections.MappingChange;
 import com.bababadboy.dealermng.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -27,12 +28,12 @@ import java.util.*;
 @CrossOrigin(origins = "*")
 public class ProductController{
     private final ProductRepository productRepository;
-    private final ProductServiceImpl productQueryService;
+    private final ProductServiceImpl productService;
 
     @Autowired
-    public ProductController(ProductRepository productRepository, ProductServiceImpl productQueryService) {
+    public ProductController(ProductRepository productRepository, ProductServiceImpl productService) {
         this.productRepository = productRepository;
-        this.productQueryService = productQueryService;
+        this.productService = productService;
     }
 
     /**
@@ -48,29 +49,35 @@ public class ProductController{
 
     /**
      * 产品列表分页查询
-     * @param page 0
-     * @param size 15
-     * @return Page<Product>
      */
     @RequestMapping(value = "/products",method = RequestMethod.GET)
     public Object retrieveAllProducts(@RequestParam(value = "page", defaultValue = "0") Integer page ,
                                              @RequestParam(value = "size", defaultValue = "15") Integer size){
-        return productQueryService.findProductNoCriteria(page,size).getContent();
+        return JSON.toJSON(productService.findProductNoCriteria(page,size).getContent());
     }
 
-    @GetMapping(value = "/products/{id}")
-    public Object retrieveProduct(@PathVariable("id") long id) {
-
-        Optional<Product> product = productQueryService.retrieveProduct(id);
-        return toJSON(product,"id");
+    /**
+     * 根据产品编号"no"查询商品详情
+     */
+    @GetMapping(value = "/products/{no}")
+    public Object retrieveProduct(@PathVariable("no") String no) {
+        Optional<Product> product = productService.retrieveProduct(no);
+        return JSON.toJSON(product);
     }
 
-    @RequestMapping(value = "/products/{id}",method = RequestMethod.DELETE)
-    public void deleteProduct(@PathVariable long id) {
-        productRepository.deleteById(id);
+    /**
+     * 根据产品编号"no"删除商品
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // 只有admin才能有删除权限
+    @RequestMapping(value = "/products/{no}",method = RequestMethod.DELETE)
+    public void deleteProduct(@PathVariable String no) {
+        productService.deleteProduct(no);
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.POST)
+    /**
+     * 增加商品
+     */
+    @RequestMapping(value = "/products", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createProduct(@RequestBody Product p){
 
         Product savedProduct = productRepository.save(p);
@@ -81,18 +88,21 @@ public class ProductController{
         return ResponseEntity.created(location).build();
     }
 
-    @RequestMapping(value = "/products/{id}",method = RequestMethod.PATCH)
+    @RequestMapping(value = "/products/{no}",method = RequestMethod.PATCH)
     public ResponseEntity<?> updateProduct(//TODO patch未完成
-            @PathVariable long id, @RequestBody Map<String,Object> updates){
+            @PathVariable String no, @RequestBody Map<String,Object> updates){
 
         return ResponseEntity.ok("Updated product successfully.");
 
     }
 
-    @PutMapping("/products/{id}")
-    public ResponseEntity<Object> updateProduct(@RequestBody Product product, @PathVariable long id) {
+    /**
+     * 根据no修改商品信息
+     */
+    @PutMapping("/products/{no}")
+    public ResponseEntity<Object> updateProduct(@RequestBody Product product, @PathVariable String no) {
 
-        productQueryService.updateProduct(product,id);
+        productService.updateProduct(product,no);
         return ResponseEntity.noContent().build();
     }
 }
