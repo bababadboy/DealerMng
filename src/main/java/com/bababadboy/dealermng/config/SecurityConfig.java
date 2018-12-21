@@ -63,8 +63,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/signup").permitAll()
                 .antMatchers("/products/**").permitAll()
                 .antMatchers("/h2-console/**/**").permitAll()
-                .antMatchers("/productSale/amount").permitAll()
+                .antMatchers("/groupInventory").permitAll()
                 .antMatchers("/produtSale/quantity").permitAll()
+                .antMatchers("/productSale/amount/trend").permitAll()
+                .antMatchers("/productSale/rank/dealer").permitAll()
+                .antMatchers("/productSale/amount").permitAll()
+                .antMatchers("/productSales/quantity/category").permitAll()
                 .antMatchers("/productSale/amount/category").permitAll()
                 // Disallow everything else..
                 .anyRequest().authenticated();
