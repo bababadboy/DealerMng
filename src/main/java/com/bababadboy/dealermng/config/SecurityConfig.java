@@ -58,26 +58,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Entry points
-        http.authorizeRequests()
-                .antMatchers("/users/login").permitAll()
-                .antMatchers("/users/signup").permitAll()
-                .antMatchers("/products/**").permitAll()
-                .antMatchers("/h2-console/**/**").permitAll()
-                .antMatchers("/groupInventory").permitAll()
-                .antMatchers("/produtSale/quantity").permitAll()
-                .antMatchers("/productSale/amount/trend").permitAll()
-                .antMatchers("/productSale/rank/dealer").permitAll()
-                .antMatchers("/productSale/amount").permitAll()
-                .antMatchers("/productSales/quantity/category").permitAll()
-                .antMatchers("/productSale/amount/category").permitAll()
-                // Disallow everything else..
-                .anyRequest().authenticated();
+//        http.authorizeRequests()
+//                .antMatchers("/users/login").permitAll()
+//                .antMatchers("/users/signup").permitAll()
+//                .antMatchers("/products/**").permitAll()
+//                .antMatchers("/h2-console/**/**").permitAll()
+//                .antMatchers("/productSale/amount").permitAll()
+//                .antMatchers("/produtSale/quantity").permitAll()
+//                .antMatchers("/productSale/amount/category").permitAll()
+//                .antMatchers("/stocks").permitAll()
+//                // Disallow everything else..
+//                .anyRequest().authenticated();
 
         // If a user try to access a resource without having enough permissions
         http.exceptionHandling().accessDeniedPage("/login");
 
         // Apply JWT
-      //  http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
+        //  http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
     }
 
