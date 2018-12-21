@@ -1,4 +1,4 @@
-package com.bababadboy.dealermng.service;
+package com.bababadboy.dealermng.service.impl;
 
 import org.springframework.stereotype.Service;
 

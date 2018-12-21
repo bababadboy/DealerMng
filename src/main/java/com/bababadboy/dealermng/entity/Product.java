@@ -44,7 +44,7 @@ public class Product implements Serializable {
     @CollectionTable(name="carousel_images", joinColumns=@JoinColumn(name="id" , nullable=false))
     @Column(name="images_url")
     @OrderColumn(name="images_order")
-    private List<String> carouseImages;
+    private List<String> carouselImages;
 
     /*@ElementCollection
     private List<String> imageUrl = new ArrayList<>();*/
@@ -79,7 +79,7 @@ public class Product implements Serializable {
         this.categories = categories;
         this.description = description;
         this.price = price;
-        this.carouseImages = carouseImages;
+        this.carouselImages = carouseImages;
         this.detailImages = detailImages;
     }
 
@@ -149,11 +149,11 @@ public class Product implements Serializable {
     }
 
     public List<String> getCarouseImages() {
-        return carouseImages;
+        return carouselImages;
     }
 
     public void setCarouseImages(List<String> carouseImages) {
-        this.carouseImages = carouseImages;
+        this.carouselImages = carouseImages;
     }
 
     public List<String> getDetailImages() {

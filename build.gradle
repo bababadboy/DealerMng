@@ -70,4 +70,16 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.0.RELEASE'
 
+    // https://mvnrepository.com/artifact/com.auth0/java-jwt
+    compile group: 'com.auth0', name: 'java-jwt', version: '3.4.0'
+
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
+
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.2'
+
+
+
+
 }
