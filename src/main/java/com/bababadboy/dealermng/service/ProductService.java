@@ -19,5 +19,5 @@ public interface ProductService {
     Optional<Product> retrieveProduct(long id); // 查询产品详情
 
     void updateProduct( Product product, long id);    // 产品更新
-    
+
 }

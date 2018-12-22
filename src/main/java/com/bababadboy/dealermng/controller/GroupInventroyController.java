@@ -48,7 +48,7 @@ public class GroupInventroyController {
             String warehouseAddress = groupInventory.getGroupWarehouse().getAddress();
             String productNo = groupInventory.getProduct().getNo();
             String productName = groupInventory.getProduct().getName();
-            int stock = groupInventory.getProduct().getStock();
+            int stock = groupInventory.getProduct().getStocks();
             String warehouseName = groupInventory.getGroupWarehouse().getWarehouseName();
             double price = groupInventory.getProduct().getPrice();
             JSONObject jsonObject = new JSONObject();
@@ -80,7 +80,7 @@ public class GroupInventroyController {
             String warehouseAddress = groupInventory.getGroupWarehouse().getAddress();
             String productNo = groupInventory.getProduct().getNo();
             String productName = groupInventory.getProduct().getName();
-            int stock = groupInventory.getProduct().getStock();
+            int stock = groupInventory.getProduct().getStocks();
             String warehouseName = groupInventory.getGroupWarehouse().getWarehouseName();
             double price = groupInventory.getProduct().getPrice();
             JSONObject jsonObject = new JSONObject();
@@ -109,7 +109,7 @@ public class GroupInventroyController {
     //groupInventoryReposity.save(groupInventory);
 
     Product product =  productRepository.findByNo(productId).orElse(null);
-    product.setStock(stocks);
+    product.setStocks(stocks);
     productRepository.save(product);
     }
 }
