@@ -41,4 +41,6 @@ public interface ProductSaleRepository extends JpaRepository<ProductSaleInfo,Lon
 
     @Override
     <S extends ProductSaleInfo> S save(S entity);
+
+    List<ProductSaleInfo> findProductSaleInfosByPaymentTimeBetween(Calendar startTime,Calendar endTime);
 }
