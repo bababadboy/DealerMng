@@ -32,8 +32,10 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String signUp(@RequestBody User user) {
-        return userService.signUp(user);
+    public Object signUp(@RequestBody User user) {
+        JSONObject json = new JSONObject();
+        json.put("access_token", userService.signUp(user));
+        return JSON.toJSON(json);
     }
 
     @PostMapping("/login")
