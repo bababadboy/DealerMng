@@ -24,6 +24,7 @@ import java.util.*;
 /**
  * @author Ash
  */
+@CrossOrigin(origins = "http://localhost:8080" )
 @Controller
 @RequestMapping(value = "/orders")
 public class OrderController {

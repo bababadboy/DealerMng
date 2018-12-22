@@ -4,7 +4,6 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,7 +26,7 @@ public class Product implements Serializable {
 
     private String name;
 
-    private int stock;
+    private int stocks;
 
     @Version
     @Column(name = "version")
@@ -70,12 +69,12 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String no, String name, int stock, int version,
+    public Product(String no, String name, int stocks, int version,
                    String categories, String description, double price,
                    List<String> carouselImages, List<String> detailImages) {
         this.no = no;
         this.name = name;
-        this.stock = stock;
+        this.stocks = stocks;
         this.version = version;
         this.categories = categories;
         this.description = description;
@@ -109,12 +108,12 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public int getStock() {
-        return stock;
+    public int getStocks() {
+        return stocks;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setStocks(int stocks) {
+        this.stocks = stocks;
     }
 
     public int getVersion() {
