@@ -35,6 +35,9 @@ public class User {
     @OneToOne
     private Dealer dealer;
 
+    public User() {
+    }
+
     public User(@Size(min = 4, max = 255, message = "Minimum username length: 4 characters") String username, String email, @Size(min = 6, message = "Minimum password length: 6 characters") String password, List<Role> roles) {
         this.username = username;
         this.email = email;

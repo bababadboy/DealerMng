@@ -1,6 +1,7 @@
 package com.bababadboy.dealermng.service.impl;
 
 import com.bababadboy.dealermng.entity.Dealer;
+import com.bababadboy.dealermng.entity.user.Role;
 import com.bababadboy.dealermng.entity.user.User;
 import com.bababadboy.dealermng.exception.CustomException;
 import com.bababadboy.dealermng.repository.DealerRepository;
@@ -58,11 +59,15 @@ public class UserService {
             System.out.println("注册密码是："+user.getPassword());
             Dealer d = user.getDealer();    // 得到与user一一对应的dealer
             try{
+                // 设置dealer经销商的默认属性
                 Timestamp ts = new Timestamp(System.currentTimeMillis());
                 d.setRegisterAt(new Date(ts.getTime()));
                 Timestamp expiredTime = new Timestamp(1570673410);
                 d.setExpiredAt(new Date(expiredTime.getTime()));
+                d.setCredit(1);
+
                 dealerRepository.save(d);
+                user.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
                 user.setDealer(d);
             }catch (ServiceException e){
                 dealerRepository.deleteById(d.getId());
@@ -70,7 +75,6 @@ public class UserService {
             }
 
             userRepository.save(user);
-
 
             return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
         } else {
