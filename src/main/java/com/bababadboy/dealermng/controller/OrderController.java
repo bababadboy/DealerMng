@@ -7,7 +7,6 @@ import com.bababadboy.dealermng.entity.OrderDetail;
 import com.bababadboy.dealermng.entity.OrderItem;
 import com.bababadboy.dealermng.entity.Product;
 import com.bababadboy.dealermng.entity.user.User;
-import com.bababadboy.dealermng.pojo.OrderStatus;
 import com.bababadboy.dealermng.repository.DealerRepository;
 import com.bababadboy.dealermng.repository.OrderDetailRepository;
 import com.bababadboy.dealermng.repository.OrderItemRepository;
@@ -28,6 +27,7 @@ import java.util.*;
 /**
  * @author Ash
  */
+@CrossOrigin(origins = "http://localhost:8080" )
 @Controller
 @RequestMapping(value = "/orders")
 public class OrderController {
@@ -41,15 +41,16 @@ public class OrderController {
 
     private final ProductRepository productRepository;
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
-    public OrderController(OrderItemRepository orderItemRepository, OrderItemService orderItemService, DealerRepository dealerRepository, ProductRepository productRepository, OrderDetailRepository orderDetailRepository) {
+    public OrderController(OrderItemRepository orderItemRepository, OrderItemService orderItemService, DealerRepository dealerRepository, ProductRepository productRepository, OrderDetailRepository orderDetailRepository, UserService userService) {
         this.orderItemRepository = orderItemRepository;
         this.orderItemService = orderItemService;
         this.dealerRepository = dealerRepository;
         this.productRepository = productRepository;
         this.orderDetailRepository = orderDetailRepository;
+        this.userService = userService;
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
@@ -67,21 +68,25 @@ public class OrderController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @RequestMapping(value = "/{orderId}", method = RequestMethod.GET)
     public ResponseEntity<?> showOrder(@PathVariable("orderId") Long orderId, HttpServletRequest req) {
-        Optional<OrderDetail> order = orderDetailRepository.findById(orderId);
+        Optional<OrderItem> order = orderItemRepository.findById(orderId);
         if (!order.isPresent()) {
             return new ResponseEntity<>("order not found", HttpStatus.BAD_REQUEST);
         }
         User user = userService.whoami(req);
-
-
+        if (!user.getDealer().getId().equals(order.get().getDealer().getId())) {
+            return new ResponseEntity<>("dealer not correct", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(JSON.toJSON(order.get()), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> createOrder(@RequestBody OrderItem orderItem) {
+    public ResponseEntity<?> createOrder(@RequestBody OrderItem orderItem, HttpServletRequest req) {
+        User user = userService.whoami(req);
         List<OrderDetail> orderDetails = new ArrayList<>(orderItem.getOrderDetails().size());
         orderItem.setOrderStatus(0);
         orderItem.setOrderedAt(new Date());
+        orderItem.setDealer(user.getDealer());
         double totalPrice = 0.0D;
         for (OrderDetail od : orderItem.getOrderDetails()) {
             Optional<Product> product = productRepository.findByNo(od.getProduct().getNo());
@@ -124,13 +129,11 @@ public class OrderController {
      * 最近订单接口 by wxb
      */
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
-    @RequestMapping(value = "recent",method = RequestMethod.GET)
-    public ResponseEntity<?> recentOrder(@RequestParam("dealerId") Long dealerId){
-        Optional<Dealer> dealer = dealerRepository.findById(dealerId);
-        if (!dealer.isPresent()) {
-            return new ResponseEntity<>("dealer not found", HttpStatus.BAD_REQUEST);
-        }
-        List<OrderItem> list = orderItemService.listRecentOrders(dealer.get());
+    @RequestMapping(value = "/recent",method = RequestMethod.GET)
+    public ResponseEntity<?> recentOrder(HttpServletRequest req) {
+        User user = userService.whoami(req);
+        Dealer dealer = user.getDealer();
+        List<OrderItem> list = orderItemService.listRecentOrders(dealer);
         return new ResponseEntity<>(JSON.toJSON(list), HttpStatus.OK);
 
     }

@@ -307,7 +307,8 @@ public class ProductSaleController {
         }
 
         jsonObject.put("totalYear",quantity);
-        jsonObject.put("averagePerDay",quantity/days);
+        if(days != 0)
+            jsonObject.put("averagePerDay",quantity/days);
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE,-10);
         quantity = 0;

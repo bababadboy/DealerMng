@@ -15,6 +15,10 @@ public class JwtCfg {
         registrationBean = new FilterRegistrationBean<JwtFilter>();
         registrationBean.setFilter(new JwtFilter());
         registrationBean.addUrlPatterns("/products/*");
+        registrationBean.addUrlPatterns("/orders/*");
+        registrationBean.addUrlPatterns("/groupwarehouses/*");
+        registrationBean.addUrlPatterns("/groupInventory/*");
+        registrationBean.addUrlPatterns("/dealers/*");
 
         return registrationBean;
     }

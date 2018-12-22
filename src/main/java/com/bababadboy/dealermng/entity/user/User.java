@@ -1,5 +1,7 @@
 package com.bababadboy.dealermng.entity.user;
 
+import com.bababadboy.dealermng.entity.Dealer;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -30,8 +32,8 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
 
-    public User() {
-    }
+    @OneToOne
+    private Dealer dealer;
 
     public User(@Size(min = 4, max = 255, message = "Minimum username length: 4 characters") String username, String email, @Size(min = 6, message = "Minimum password length: 6 characters") String password, List<Role> roles) {
         this.username = username;
@@ -41,6 +43,13 @@ public class User {
     }
 
     /** getter and setter **/
+    //得到对应的经销商
+    public void setDealer(Dealer dealer){
+        this.dealer = dealer;
+    }
+
+    public Dealer getDealer(){return dealer;}
+
     public long getId() {
         return id;
     }
