@@ -1,5 +1,6 @@
 package com.bababadboy.dealermng;
 
+import com.bababadboy.dealermng.entity.Group;
 import com.bababadboy.dealermng.entity.user.Role;
 import com.bababadboy.dealermng.entity.user.User;
 import com.bababadboy.dealermng.service.impl.UserService;
@@ -20,13 +21,13 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @SpringBootApplication
 public class Application {
+//    private final UserService userService;
 
-//    final UserService userService;
-//
 //    @Autowired
 //    public Application(UserService userService) {
 //        this.userService = userService;
 //    }
+
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -37,7 +38,7 @@ public class Application {
         return new ModelMapper();
     }
 
-
+//
 //    @Override
 //    public void run(String... args) throws Exception {
 //        User admin = new User();
@@ -45,15 +46,7 @@ public class Application {
 //        admin.setPassword("richie123");
 //        admin.setEmail("richie@gmail.com");
 //        admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
-//
-//        userService.signUp(admin);
-//
-//        User client = new User();
-//        client.setUsername("client");
-//        client.setPassword("client123");
-//        client.setEmail("client@email.com");
-//        client.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
-//
-//        userService.signUp(client);
+//        admin.(new Group("王氏集团有限公司"));
+//        userService.groupSignUp(admin);
 //    }
 }
