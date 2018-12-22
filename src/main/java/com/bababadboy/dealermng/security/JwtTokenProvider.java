@@ -36,8 +36,9 @@ public class JwtTokenProvider {
     @Value("${security.jrwt.token.secret-key:secret-key}")
     private String secretKey;
 
-    @Value("${security.jwt.token.expire-length:3600000}")
-    private long validityInMilliseconds = 3600000; // 1h
+    // 2h
+    @Value("${security.jwt.token.expire-length:7200000}")
+    private long validityInMilliseconds = 7200000;
 
     @Autowired
     private MyUserDetails myUserDetails;
@@ -55,11 +56,11 @@ public class JwtTokenProvider {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
-        return Jwts.builder()//
-                .setClaims(claims)//
-                .setIssuedAt(now)//
-                .setExpiration(validity)//
-                .signWith(SignatureAlgorithm.HS256, "secretkey")//
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, "secretkey")
                 .compact();
     }
 
@@ -76,9 +77,9 @@ public class JwtTokenProvider {
      * 分解request，获取token
      */
     public String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7, bearerToken.length());
+        String bearerToken = req.getHeader(SecurityConstants.HEADER_STRING);
+        if (bearerToken != null && bearerToken.startsWith(SecurityConstants.TOKEN_PREFIX)) {
+            return bearerToken.substring(7);
         }
         return null;
     }

@@ -42,7 +42,6 @@ public class Dealer implements Serializable {
     private Integer credit;
 
     // 经销商负责地区
-    @Column(nullable = false)
     private String area;
 
     // 经销商注册时间
@@ -51,8 +50,8 @@ public class Dealer implements Serializable {
     private Date registerAt;
 
     // 经销商合同到期时间
-    @Column(nullable = false)
-    private Date expiredAt;
+//    @Column(nullable = false)
+    private  Date expiredAt;
 
     // 备注信息
     @Lob
@@ -60,6 +59,7 @@ public class Dealer implements Serializable {
 
     /**
      * Constructor
+     *
      */
     public Dealer() {
     }
@@ -101,14 +101,6 @@ public class Dealer implements Serializable {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
     }
 
     public String getPhone() {
@@ -157,5 +149,13 @@ public class Dealer implements Serializable {
 
     public void setExpiredAt(Date expiredAt) {
         this.expiredAt = expiredAt;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

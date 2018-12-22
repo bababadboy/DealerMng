@@ -1,10 +1,10 @@
 -- 产品详情表
-INSERT INTO product(categories, description, name, no, price, stock, version) VALUES("电脑桌","放电脑的桌子","FUN科技电脑桌","YK070005B",233.33,230,1);
-INSERT INTO product(categories, description, name, no, price, stock, version) VALUES("电脑桌","放电脑的桌子","极客湾的电脑桌","YG073005B",250.33,200,1);
-INSERT INTO `dealermng`.`product` (`id`, `categories`, `description`, `name`, `no`, `price`, `stock`, `version`) VALUES ('3', '书房家具', '婴儿摇篮', '宝贝摇篮', 'YG073006B', '400', '300', '1');
-INSERT INTO `dealermng`.`product` (`id`, `categories`, `description`, `name`, `no`, `price`, `stock`, `version`) VALUES ('4', '客厅家具', '儿童木马', '儿童木马', 'YG073007B', '500', '300', '1');
-INSERT INTO `dealermng`.`product` (`id`, `categories`, `description`, `name`, `no`, `price`, `stock`, `version`) VALUES ('5', '书房家具', '书桌', '檀木书桌', 'YG073008B', '2000', '100', '1');
-INSERT INTO `dealermng`.`product` (`id`, `categories`, `description`, `name`, `no`, `price`, `stock`, `version`) VALUES ('6', '卫浴家具', '洗漱台', '豪华洗漱', 'YG073009B', '3000', '200', '1');
+INSERT INTO product(categories, description, name, no, price, stocks, version) VALUES("电脑桌","放电脑的桌子","FUN科技电脑桌","YK070005B",233.33,230,1);
+INSERT INTO product(categories, description, name, no, price, stocks, version) VALUES("电脑桌","放电脑的桌子","极客湾的电脑桌","YG073005B",250.33,200,1);
+INSERT INTO `dealermng`.`product` (`categories`, `description`, `name`, `no`, `price`, `stocks`, `version`) VALUES ('书房家具', '婴儿摇篮', '宝贝摇篮', 'YG073006B', '400', '300', '1');
+INSERT INTO `dealermng`.`product` (`categories`, `description`, `name`, `no`, `price`, `stocks`, `version`) VALUES ('客厅家具', '儿童木马', '儿童木马', 'YG073007B', '500', '300', '1');
+INSERT INTO `dealermng`.`product` (`categories`, `description`, `name`, `no`, `price`, `stocks`, `version`) VALUES ('书房家具', '书桌', '檀木书桌', 'YG073008B', '2000', '100', '1');
+INSERT INTO `dealermng`.`product` (`categories`, `description`, `name`, `no`, `price`, `stocks`, `version`) VALUES ('卫浴家具', '洗漱台', '豪华洗漱', 'YG073009B', '3000', '200', '1');
 
 -- 经销商详情表
 insert into dealer(id, city, details, district, province, street, area, credit, expired_at, gender, name, note, phone, register_at) values(1, "Hangzhou", "HangZhouDianZi University", "JiangGan", "ZheJiang", "BaiYang", "JiaXing", 1, "2018-12-06 12:00:00", "male", "NormalAsh1", "NULL", "12345678901", "2018-12-06 11:00:00");
@@ -33,6 +33,20 @@ INSERT into carousel_images(images_order,id, images_url) VALUES(2,1,"http://gd1.
 INSERT into carousel_images(images_order,id, images_url) VALUES(3,2,"https://gd4.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg_400x400.jpg");
 INSERT into carousel_images(images_order,id, images_url) VALUES(4,2,"http://gd1.alicdn.com/imgextra/i1/355159670/TB2_J61BN9YBuNjy0FfXXXIsVXa_!!355159670.jpg");
 INSERT into carousel_images(images_order,id, images_url) VALUES(5,2,"http://gd1.alicdn.com/imgextra/i1/355159670/TB2yzHhB49YBuNjy0FfXXXIsVXa_!!355159670.jpg");
+
+-- 订单子项
+INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details1","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum1","支付宝","1",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
+INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details2","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum2","支付宝","2",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",2);
+INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details3","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum3","支付宝","3",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
+INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details4","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum4","支付宝","6",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
+INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details5","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum5","支付宝","7",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",2);
+INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details6","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum6","支付宝","4",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",3);
+INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details7","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum7","支付宝","5",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
+
+-- 订单详情
+INSERT INTO order_detail(amount, total_money, order_item_id, product_no) VALUES (3,55245,1,"YK070005B");
+INSERT INTO order_detail(amount, total_money, order_item_id, product_no) VALUES (3,44445,2,"YK070005B");
+INSERT INTO order_detail(amount, total_money, order_item_id, product_no) VALUES (3,5545,2,"YK070005B");
 
 
 -- 登录用户信息表

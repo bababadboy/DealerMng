@@ -18,12 +18,12 @@ public class UserDataDTO {
     @ApiModelProperty(position = 2)
     private String password;
     @ApiModelProperty(position = 3)
-    List<Role> roles;
+    private List<Role> roles;
 
     public UserDataDTO() {
     }
 
-    public UserDataDTO(String username, String email, String password,List<Role> roles) {
+    public UserDataDTO(String username, String email, String password, List<Role> roles) {
         this.username = username;
         this.email = email;
         this.password = password;

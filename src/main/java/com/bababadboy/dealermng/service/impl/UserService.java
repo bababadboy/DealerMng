@@ -1,9 +1,13 @@
 package com.bababadboy.dealermng.service.impl;
 
+import com.bababadboy.dealermng.entity.Dealer;
+import com.bababadboy.dealermng.entity.user.Role;
 import com.bababadboy.dealermng.entity.user.User;
 import com.bababadboy.dealermng.exception.CustomException;
+import com.bababadboy.dealermng.repository.DealerRepository;
 import com.bababadboy.dealermng.repository.UserRepository;
 import com.bababadboy.dealermng.security.JwtTokenProvider;
+import org.hibernate.service.spi.ServiceException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * @author wangxiaobin
@@ -33,24 +37,45 @@ public class UserService {
 
     private final ModelMapper modelMapper;
 
+    private final DealerRepository dealerRepository;
+
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager, ModelMapper modelMapper) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager, ModelMapper modelMapper, DealerRepository dealerRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
         this.modelMapper = modelMapper;
+        this.dealerRepository = dealerRepository;
     }
 
     /**
      * 用户注册
      * @return 注册成功，返回生成的jwt
      */
-    public String signUp(User user) {
+    public String signUp(User user) throws ServiceException {
         if (!userRepository.existsUserByUsername(user.getUsername())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             System.out.println("注册密码是："+user.getPassword());
-            userRepository.save(user);
+            // 得到与user一一对应的dealer
+            Dealer d = user.getDealer();
+            try {
+                // 设置dealer经销商的默认属性
+                Timestamp ts = new Timestamp(System.currentTimeMillis());
+                d.setRegisterAt(new Date(ts.getTime()));
+                Timestamp expiredTime = new Timestamp(1570673410);
+                d.setExpiredAt(new Date(expiredTime.getTime()));
+                d.setCredit(1);
+                dealerRepository.save(d);
+                System.out.println("dealer saved: " + d.getId());
+                user.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
+                user.setDealer(d);
+                userRepository.save(user);
+            } catch (Exception e) {
+                dealerRepository.deleteById(d.getId());
+                e.printStackTrace();
+                return "null";
+            }
             return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
         } else {
             throw new CustomException("Username is already in use.", HttpStatus.UNPROCESSABLE_ENTITY);
