@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().accessDeniedPage("/login");
 
         // Apply JWT
-      //  http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
+        //  http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
     }
 

@@ -19,10 +19,14 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class Application implements CommandLineRunner{
+public class Application{
 
-    @Autowired
-    UserService userService;
+//    final UserService userService;
+//
+//    @Autowired
+//    public Application(UserService userService) {
+//        this.userService = userService;
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -34,22 +38,22 @@ public class Application implements CommandLineRunner{
     }
 
 
-    @Override
-    public void run(String... args) throws Exception {
-        User admin = new User();
-        admin.setUsername("richie");
-        admin.setPassword("richie123");
-        admin.setEmail("richie@gmail.com");
-        admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
-
-        userService.signUp(admin);
-
-        User client = new User();
-        client.setUsername("client");
-        client.setPassword("client123");
-        client.setEmail("client@email.com");
-        client.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
-
-        userService.signUp(client);
-    }
+//    @Override
+//    public void run(String... args) throws Exception {
+//        User admin = new User();
+//        admin.setUsername("richie");
+//        admin.setPassword("richie123");
+//        admin.setEmail("richie@gmail.com");
+//        admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
+//
+//        userService.signUp(admin);
+//
+//        User client = new User();
+//        client.setUsername("client");
+//        client.setPassword("client123");
+//        client.setEmail("client@email.com");
+//        client.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
+//
+//        userService.signUp(client);
+//    }
 }

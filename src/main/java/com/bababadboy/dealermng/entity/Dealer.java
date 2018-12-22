@@ -38,11 +38,10 @@ public class Dealer implements Serializable {
     private Address address;
 
     // 经销商信用等级
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition="default '1'")
     private Integer credit;
 
     // 经销商负责地区
-    @Column(nullable = false)
     private String area;
 
     // 经销商注册时间
@@ -52,7 +51,7 @@ public class Dealer implements Serializable {
 
     // 经销商合同到期时间
     @Column(nullable = false)
-    private Date expiredAt;
+    private  Date expiredAt;
 
     // 备注信息
     @Lob
@@ -132,7 +131,7 @@ public class Dealer implements Serializable {
     }
 
     public void setCredit(Integer credit) {
-        this.credit = credit;
+        this.credit = 1;
     }
 
     public String getArea() {

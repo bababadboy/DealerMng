@@ -2,6 +2,7 @@ package com.bababadboy.dealermng.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "group_inventory")
@@ -48,6 +49,7 @@ public class GroupInventory implements Serializable {
     public void setGroupWarehouse(GroupWarehouse groupWarehouse) {
         this.groupWarehouse = groupWarehouse;
     }
+
 
     public Product getProduct() {
         return product;
