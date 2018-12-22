@@ -33,7 +33,7 @@ public class OrderDetail {
 
     // 该订单细节总金额
     @Column(precision = 10, scale = 2, nullable = false)
-    private Double sum;
+    private Double totalMoney;
 
     public OrderDetail() {
     }
@@ -70,12 +70,12 @@ public class OrderDetail {
         this.amount = amount;
     }
 
-    public Double getSum() {
-        return sum;
+    public Double getTotalMoney() {
+        return totalMoney;
     }
 
-    public void setSum(Double sum) {
-        this.sum = sum;
+    public void setTotalMoney(Double totalMoney) {
+        this.totalMoney = totalMoney;
     }
 }
 

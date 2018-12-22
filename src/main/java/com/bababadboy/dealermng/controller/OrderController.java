@@ -67,7 +67,7 @@ public class OrderController {
         for (OrderDetail od : orderItem.getOrderDetails()) {
             Optional<Product> product = productRepository.findByNo(od.getProduct().getNo());
             double price = od.getAmount() * product.get().getPrice();
-            od.setSum(price);
+            od.setTotalMoney(price);
             od.setProduct(product.get());
             totalPrice += price;
             orderDetails.add(od);
