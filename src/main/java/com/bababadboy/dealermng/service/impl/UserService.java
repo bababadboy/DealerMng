@@ -57,25 +57,25 @@ public class UserService {
         if (!userRepository.existsUserByUsername(user.getUsername())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             System.out.println("注册密码是："+user.getPassword());
-            Dealer d = user.getDealer();    // 得到与user一一对应的dealer
-            try{
+            // 得到与user一一对应的dealer
+            Dealer d = user.getDealer();
+            try {
                 // 设置dealer经销商的默认属性
                 Timestamp ts = new Timestamp(System.currentTimeMillis());
                 d.setRegisterAt(new Date(ts.getTime()));
                 Timestamp expiredTime = new Timestamp(1570673410);
                 d.setExpiredAt(new Date(expiredTime.getTime()));
                 d.setCredit(1);
-
                 dealerRepository.save(d);
+                System.out.println("dealer saved: " + d.getId());
                 user.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
                 user.setDealer(d);
-            }catch (ServiceException e){
+                userRepository.save(user);
+            } catch (Exception e) {
                 dealerRepository.deleteById(d.getId());
                 e.printStackTrace();
+                return "null";
             }
-
-            userRepository.save(user);
-
             return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
         } else {
             throw new CustomException("Username is already in use.", HttpStatus.UNPROCESSABLE_ENTITY);

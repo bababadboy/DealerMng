@@ -25,6 +25,7 @@ import java.util.*;
  */
 @Transactional
 @RestController
+@CrossOrigin(origins = "*")
 public class ProductController{
     private final ProductRepository productRepository;
     private final ProductServiceImpl productService;

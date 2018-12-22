@@ -33,8 +33,12 @@ import static com.bababadboy.dealermng.security.SecurityConstants.SIGN_UP_URL;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final JwtTokenProvider jwtTokenProvider;
+
     @Autowired
-    private JwtTokenProvider jwtTokenProvider;
+    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)

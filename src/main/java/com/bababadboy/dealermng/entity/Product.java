@@ -8,7 +8,7 @@ import java.util.List;
 
 
 /**
- * 产品实体类
+ * 产品实体类z
  * @author wangxiaobin
  */
 @Entity
