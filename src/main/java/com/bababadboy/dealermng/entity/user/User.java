@@ -1,6 +1,7 @@
 package com.bababadboy.dealermng.entity.user;
 
 import com.bababadboy.dealermng.entity.Dealer;
+import com.bababadboy.dealermng.entity.Group;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -35,14 +36,18 @@ public class User {
     @OneToOne
     private Dealer dealer;
 
+    @OneToOne
+    private Group group;
+
     public User() {
     }
 
-    public User(@Size(min = 4, max = 255, message = "Minimum username length: 4 characters") String username, String email, @Size(min = 6, message = "Minimum password length: 6 characters") String password, List<Role> roles) {
+    public User(@Size(min = 4, max = 255, message = "Minimum username length: 4 characters") String username, String email, @Size(min = 6, message = "Minimum password length: 6 characters") String password, List<Role> roles, Group group) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.group = group;
     }
 
     /** getter and setter **/
@@ -91,5 +96,13 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

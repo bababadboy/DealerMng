@@ -1,15 +1,9 @@
 package com.bababadboy.dealermng.config;
 
 
-import com.bababadboy.dealermng.security.JWTAuthenticationFilter;
-import com.bababadboy.dealermng.security.JWTAuthorizationFilter;
-import com.bababadboy.dealermng.security.JwtTokenFilterConfigurer;
 import com.bababadboy.dealermng.security.JwtTokenProvider;
-import com.bababadboy.dealermng.service.impl.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -23,7 +17,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static com.bababadboy.dealermng.security.SecurityConstants.SIGN_UP_URL;
 
 /**
  * 自定义安全配置
@@ -62,28 +55,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Entry points
-        http.authorizeRequests()
-                .antMatchers("/users/login").permitAll()
-                .antMatchers("/users/signup").permitAll()
-                .antMatchers("/products/**").permitAll()
-                .antMatchers("/h2-console/**/**").permitAll()
-                .antMatchers("/productSale/amount").permitAll()
-                .antMatchers("/productSale/rank/dealer").permitAll()
-                .antMatchers("/productSale/amount/trend").permitAll()
-                .antMatchers("/productSale/amount/category").permitAll()
-                .antMatchers("/productSale/quantity").permitAll()
-                .antMatchers("/productSale/amount").permitAll()
-                .antMatchers("/productSales/quantity/category").permitAll()
-                .antMatchers("/groupInventory").permitAll()
-                .antMatchers("/stocks").permitAll()
-                // Disallow everything else..
-                .anyRequest().authenticated();
+//        http.authorizeRequests()
+//                .antMatchers("/users/login").permitAll()
+//                .antMatchers("/users/signup").permitAll()
+//                .antMatchers("/products/**").permitAll()
+//                .antMatchers("/h2-console/**/**").permitAll()
+//                .antMatchers("/productSale/amount").permitAll()
+//                .antMatchers("/produtSale/quantity").permitAll()
+//                .antMatchers("/productSale/amount/category").permitAll()
+//                .antMatchers("/stocks").permitAll()
+//                // Disallow everything else..
+//                .anyRequest().authenticated();
 
         // If a user try to access a resource without having enough permissions
         http.exceptionHandling().accessDeniedPage("/login");
 
-        // Apply JWT
-          http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
+//        Apply JWT
+//          http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
     }
 

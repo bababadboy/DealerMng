@@ -38,6 +38,13 @@ public class UserController {
         return JSON.toJSON(json);
     }
 
+    @PostMapping("/group/signup")
+    public Object groupSignUp(@RequestBody User user) {
+        JSONObject json = new JSONObject();
+        json.put("access_token", userService.groupSignUp(user));
+        return JSON.toJSON(json);
+    }
+
     @PostMapping("/login")
     public Object logIn(@RequestParam String username,@RequestParam String password){
         String token = userService.logIn(username,password);

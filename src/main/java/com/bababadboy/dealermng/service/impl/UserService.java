@@ -1,18 +1,22 @@
 package com.bababadboy.dealermng.service.impl;
 
 import com.bababadboy.dealermng.entity.Dealer;
+import com.bababadboy.dealermng.entity.Group;
 import com.bababadboy.dealermng.entity.user.Role;
 import com.bababadboy.dealermng.entity.user.User;
 import com.bababadboy.dealermng.exception.CustomException;
 import com.bababadboy.dealermng.repository.DealerRepository;
+import com.bababadboy.dealermng.repository.GroupRepository;
 import com.bababadboy.dealermng.repository.UserRepository;
 import com.bababadboy.dealermng.security.JwtTokenProvider;
 import org.hibernate.service.spi.ServiceException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,14 +43,18 @@ public class UserService {
 
     private final DealerRepository dealerRepository;
 
+    private final GroupRepository groupRepository;
+
+
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager, ModelMapper modelMapper, DealerRepository dealerRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager, ModelMapper modelMapper, DealerRepository dealerRepository, GroupRepository groupRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
         this.modelMapper = modelMapper;
         this.dealerRepository = dealerRepository;
+        this.groupRepository = groupRepository;
     }
 
     /**
@@ -79,6 +87,28 @@ public class UserService {
             return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
         } else {
             throw new CustomException("Username is already in use.", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    /**
+     * 集团注册
+     * @return 注册成功，返回生成的jwt
+     */
+    public String groupSignUp(User user) throws ServiceException {
+        if (!userRepository.existsUserByUsername(user.getUsername())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            // 得到与user唯一对应的group
+//            Group group = user.getGroup();
+            Group group = user.getGroup();
+            group.setGroupName("王氏集团有限公司");
+            groupRepository.save(group);
+
+            user.setRoles(Arrays.asList(Role.ROLE_ADMIN));
+            user.setGroup(group);
+            userRepository.save(user);
+            return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+        } else {
+            throw new CustomException("GroupName is already in use.", HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
