@@ -9,14 +9,13 @@ import java.util.List;
 
 
 /**
- * 产品实体类
+ * 产品实体类z
  * @author wangxiaobin
  */
 @Entity
 @Table(name = "product")
 public class Product implements Serializable {
 
-    @JSONField(serialize = false)
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
