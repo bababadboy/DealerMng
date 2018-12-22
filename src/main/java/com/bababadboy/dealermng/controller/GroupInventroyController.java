@@ -4,7 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.bababadboy.dealermng.entity.GroupInventory;
+import com.bababadboy.dealermng.entity.Product;
 import com.bababadboy.dealermng.repository.GroupInventoryReposity;
+import com.bababadboy.dealermng.repository.ProductRepository;
+import com.bababadboy.dealermng.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +26,10 @@ public class GroupInventroyController {
     @Autowired
     private GroupInventoryReposity groupInventoryReposity;
 
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private ProductService productService;
     private static JSON toJsons(Object o, String... excludeKeys) {
         List<String> excludes = Arrays.asList(excludeKeys);
 
@@ -41,7 +48,7 @@ public class GroupInventroyController {
             String warehouseAddress = groupInventory.getGroupWarehouse().getAddress();
             String productNo = groupInventory.getProduct().getNo();
             String productName = groupInventory.getProduct().getName();
-            int stock = groupInventory.getStocks();
+            int stock = groupInventory.getProduct().getStock();
             String warehouseName = groupInventory.getGroupWarehouse().getWarehouseName();
             double price = groupInventory.getProduct().getPrice();
             JSONObject jsonObject = new JSONObject();
@@ -73,7 +80,7 @@ public class GroupInventroyController {
             String warehouseAddress = groupInventory.getGroupWarehouse().getAddress();
             String productNo = groupInventory.getProduct().getNo();
             String productName = groupInventory.getProduct().getName();
-            int stock = groupInventory.getStocks();
+            int stock = groupInventory.getProduct().getStock();
             String warehouseName = groupInventory.getGroupWarehouse().getWarehouseName();
             double price = groupInventory.getProduct().getPrice();
             JSONObject jsonObject = new JSONObject();
@@ -91,14 +98,18 @@ public class GroupInventroyController {
     }
 @RequestMapping(value = "/groupInventory", method = RequestMethod.POST)
     public  void  updateInventory(@RequestBody JSONObject jsonObject){
-    Long productId=  jsonObject.getLong("productId");
+    String productId=  jsonObject.getString("productId");
     short stocks=  jsonObject.getShort("stock");
     Long warehouseId=  jsonObject.getLong("warehouseId");
 
     //Combined query inventory entity by  warehouseId and productId
-    GroupInventory groupInventory = groupInventoryReposity.findGroupInventoryByGroupWarehouseAndProduct(warehouseId,productId );
-    groupInventory.setStocks(stocks);
+    //GroupInventory groupInventory = groupInventoryReposity.findGroupInventoryByGroupWarehouseAndProduct(warehouseId,productId );
+    //groupInventory.setStocks(stocks);
 
-    groupInventoryReposity.save(groupInventory);
-}
+    //groupInventoryReposity.save(groupInventory);
+
+    Product product =  productRepository.findByNo(productId).orElse(null);
+    product.setStock(stocks);
+    productRepository.save(product);
+    }
 }
