@@ -84,9 +84,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/login").permitAll()
                 .anyRequest().authenticated();
 
-        httpSecurity
-                .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
-
         // disable page caching
         httpSecurity
                 .headers()
