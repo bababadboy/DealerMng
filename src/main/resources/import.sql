@@ -81,10 +81,6 @@ INSERT INTO `dealermng`.`product_sale_info` (`id`, `customer_id`, `delivery_time
 -- 集团仓库表
 INSERT INTO `dealermng`.`group_warehouse` (`id`, `address`, `warehouse_name`, `warehouse_no`) VALUES ('1', '杭州下沙', '杭州第一仓库', '1');
 
--- 集团库存信息表
-INSERT INTO `dealermng`.`group_inventory` (`id`, `max_stocks`, `min_stocks`, `stocks`, `group_warehouse_id`, `product_id`) VALUES ('2', '300', '30', '50', '1', '2');
-INSERT INTO `dealermng`.`group_inventory` (`id`, `max_stocks`, `min_stocks`, `stocks`, `group_warehouse_id`, `product_id`) VALUES ('3', '300', '30', '55', '1', '3');
-INSERT INTO `dealermng`.`group_inventory` (`id`, `max_stocks`, `min_stocks`, `stocks`, `group_warehouse_id`, `product_id`) VALUES ('4', '50', '6', '20', '1', '4');
 
 -- 集团库存信息表
 INSERT INTO `dealermng`.`group_inventory` (`id`, `max_stocks`, `min_stocks`, `group_warehouse_id`, `product_id`) VALUES ('2', '300', '30', '1', '2');

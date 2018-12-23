@@ -44,7 +44,7 @@ public class GroupInventroyController {
         List<GroupInventory> list = groupInventoryReposity.findAll();
         List<JSON> jsonList = new ArrayList<>();
         for (GroupInventory groupInventory : list) {
-            String warehouseNo = groupInventory.getGroupWarehouse().getWarehouse_no();
+            String warehouseId = groupInventory.getGroupWarehouse().getId().toString();
             String warehouseAddress = groupInventory.getGroupWarehouse().getAddress();
             String productNo = groupInventory.getProduct().getNo();
             String productName = groupInventory.getProduct().getName();
@@ -58,7 +58,7 @@ public class GroupInventroyController {
             jsonObject.put("productNo", productNo);
             jsonObject.put("productName", productName);
             jsonObject.put("price", price);
-            jsonObject.put("warehouseNo", warehouseNo);
+            jsonObject.put("warehouseId", warehouseId);
             jsonObject.put("stock", stock);
             jsonList.add(jsonObject);
         }
@@ -76,7 +76,7 @@ public class GroupInventroyController {
         List<JSON> jsonList = new ArrayList<>();
         for(GroupInventory groupInventory : p)
         {
-            String warehouseNo = groupInventory.getGroupWarehouse().getWarehouse_no();
+            String warehouseId = groupInventory.getGroupWarehouse().getId().toString();
             String warehouseAddress = groupInventory.getGroupWarehouse().getAddress();
             String productNo = groupInventory.getProduct().getNo();
             String productName = groupInventory.getProduct().getName();
@@ -90,7 +90,7 @@ public class GroupInventroyController {
             jsonObject.put("productNo", productNo);
             jsonObject.put("productName", productName);
             jsonObject.put("price", price);
-            jsonObject.put("warehouseNo", warehouseNo);
+            jsonObject.put("warehouseId", warehouseId);
             jsonObject.put("stock", stock);
             jsonList.add(jsonObject);
         }
@@ -98,7 +98,7 @@ public class GroupInventroyController {
     }
 @RequestMapping(value = "/groupInventory", method = RequestMethod.POST)
     public  void  updateInventory(@RequestBody JSONObject jsonObject){
-    String productId=  jsonObject.getString("productId");
+    String productNo=  jsonObject.getString("productNo");
     short stocks=  jsonObject.getShort("stock");
     Long warehouseId=  jsonObject.getLong("warehouseId");
 
@@ -108,7 +108,7 @@ public class GroupInventroyController {
 
     //groupInventoryReposity.save(groupInventory);
 
-    Product product =  productRepository.findByNo(productId).orElse(null);
+    Product product =  productRepository.findByNo(productNo).orElse(null);
     product.setStocks(stocks);
     productRepository.save(product);
     }
