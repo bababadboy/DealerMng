@@ -74,6 +74,7 @@ public class UserService {
                 Timestamp expiredTime = new Timestamp(1570673410);
                 d.setExpiredAt(new Date(expiredTime.getTime()));
                 d.setCredit(1);
+                d.setArea("中国华东区");
                 dealerRepository.save(d);
                 System.out.println("dealer saved: " + d.getId());
                 user.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
