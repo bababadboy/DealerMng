@@ -22,8 +22,8 @@ public class GroupInventory implements Serializable {
     @JoinColumn(name = "product_id")
     private  Product product;
 
-    @Column(name = "stocks",nullable = false)
-    private short stocks;
+//    @Column(name = "stocks",nullable = false)
+  //  private short stocks;
 
     @Column(name = "max_stocks",nullable = false)
     private short maxStocks;
@@ -59,13 +59,7 @@ public class GroupInventory implements Serializable {
         this.product = product;
     }
 
-    public short getStocks() {
-        return stocks;
-    }
 
-    public void setStocks(short stocks) {
-        this.stocks = stocks;
-    }
 
     public short getMaxStocks() {
         return maxStocks;
