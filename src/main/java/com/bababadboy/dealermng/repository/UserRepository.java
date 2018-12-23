@@ -1,22 +1,28 @@
 package com.bababadboy.dealermng.repository;
 
-import com.bababadboy.dealermng.entity.user.User;
+import com.bababadboy.dealermng.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import javax.transaction.Transactional;
+import org.springframework.stereotype.Repository;
 
 /**
- * @author wangxiaobin
+ * @author Ash
+ * @date 2018/12/22 19:47
  */
-public interface UserRepository extends JpaRepository<User,Long> {
-
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    /**
+     * 根据username查找User
+     * @param username
+     * @return user
+     */
     User findByUsername(String username);
 
+    /**
+     * 根绝username判定是否存在User
+     * @param username
+     * @return boolean
+     */
+    boolean existsByUsername(String username);
+
     boolean existsUserByUsername(String username);
-
-    @Override
-    <S extends User> S save(S entity);
-
-    @Transactional
-    void deleteUserByUsername(String username);
 }

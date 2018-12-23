@@ -1,102 +1,125 @@
 package com.bababadboy.dealermng.config;
 
 
-import com.bababadboy.dealermng.security.JWTAuthenticationFilter;
-import com.bababadboy.dealermng.security.JWTAuthorizationFilter;
-import com.bababadboy.dealermng.security.JwtTokenFilterConfigurer;
-import com.bababadboy.dealermng.security.JwtTokenProvider;
-import com.bababadboy.dealermng.service.impl.MyUserDetails;
+import com.bababadboy.dealermng.jwt.JwtAuthenticationEntryPoint;
+import com.bababadboy.dealermng.jwt.JwtAuthorizationTokenFilter;
+import com.bababadboy.dealermng.jwt.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.BeanIds;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import static com.bababadboy.dealermng.security.SecurityConstants.SIGN_UP_URL;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * 自定义安全配置
  * @author Ash
  */
-@EnableWebSecurity()
+@Configuration
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Autowired
-    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
+    private JwtUserDetailsService jwtUserDetailsService;
+
+    // Custom JWT based security filter
+    @Autowired
+    JwtAuthorizationTokenFilter authenticationTokenFilter;
+
+    @Value("${jwt.header}")
+    private String tokenHeader;
+
+    @Value("${jwt.route.authentication.path}")
+    private String authenticationPath;
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(jwtUserDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
-
-
-    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
-    @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
-    }
-
-    /**
-     * define which resources are public and which are secured.
-     */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-
-        http.cors();
-
-        // Disable CSRF (cross site request forgery)
-        http.csrf().disable();
-
-        // No session will be created or used by spring security
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        // Entry points
-//        http.authorizeRequests()
-//                .antMatchers("/users/login").permitAll()
-//                .antMatchers("/users/signup").permitAll()
-//                .antMatchers("/products/**").permitAll()
-//                .antMatchers("/h2-console/**/**").permitAll()
-//                .antMatchers("/productSale/amount").permitAll()
-//                .antMatchers("/produtSale/quantity").permitAll()
-//                .antMatchers("/productSale/amount/category").permitAll()
-//                .antMatchers("/stocks").permitAll()
-//                // Disallow everything else..
-//                .anyRequest().authenticated();
-
-        // If a user try to access a resource without having enough permissions
-        http.exceptionHandling().accessDeniedPage("/login");
-
-        // Apply JWT
-        //  http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
-
-    }
-
-    /**
-     * allow/restrict our CORS support.
-     * Left it wide open by permitting requests from any source (/**).
-     */
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-        return source;
-    }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
+        return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                // we don't need CSRF because our token is invulnerable
+                .csrf().disable()
+
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+
+                // don't create session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+
+                .authorizeRequests()
+
+                // Un-secure H2 Database
+                .antMatchers("/h2-console/**/**").permitAll()
+
+                .antMatchers("/users/signup").permitAll()
+                .antMatchers("/users/login").permitAll()
+                .anyRequest().authenticated();
+
+        httpSecurity
+                .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+        // disable page caching
+        httpSecurity
+                .headers()
+                .frameOptions().sameOrigin()  // required to set for H2 else H2 Console will be blank.
+                .cacheControl();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        // AuthenticationTokenFilter will ignore the below paths
+        web
+                .ignoring()
+                .antMatchers(
+                        HttpMethod.POST,
+                        authenticationPath
+                )
+
+                // allow anonymous resource requests
+                .and()
+                .ignoring()
+                .antMatchers(
+                        HttpMethod.GET,
+                        "/",
+                        "/*.html",
+                        "/favicon.ico",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js"
+                )
+
+                // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
+                .and()
+                .ignoring()
+                .antMatchers("/h2-console/**/**");
+    }
 }
