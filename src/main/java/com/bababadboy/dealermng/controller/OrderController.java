@@ -6,6 +6,7 @@ import com.bababadboy.dealermng.entity.Dealer;
 import com.bababadboy.dealermng.entity.OrderDetail;
 import com.bababadboy.dealermng.entity.OrderItem;
 import com.bababadboy.dealermng.entity.Product;
+import com.bababadboy.dealermng.entity.user.Role;
 import com.bababadboy.dealermng.entity.user.User;
 import com.bababadboy.dealermng.repository.DealerRepository;
 import com.bababadboy.dealermng.repository.OrderDetailRepository;
@@ -27,7 +28,6 @@ import java.util.*;
 /**
  * @author Ash
  */
-@CrossOrigin(origins = "http://localhost:8080" )
 @Controller
 @RequestMapping(value = "/orders")
 public class OrderController {
@@ -55,14 +55,21 @@ public class OrderController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> listOrdersByDealerId(@RequestParam(value = "page", defaultValue = "0") Integer page,
-                                        @RequestParam("dealerId") Long dealerId) {
-        Optional<Dealer> dealer = dealerRepository.findById(dealerId);
+    public ResponseEntity<?> listOrdersByDealerId(@RequestParam(value = "page", defaultValue = "0") Integer page, HttpServletRequest req) {
+        User user = userService.whoami(req);
+        Optional<Dealer> dealer = dealerRepository.findById(user.getDealer().getId());
         if (!dealer.isPresent()) {
             return new ResponseEntity<>("dealer not found", HttpStatus.BAD_REQUEST);
         }
         Page<OrderItem> list = orderItemService.listOrdersByPage(page, 10, dealer.get());
         return new ResponseEntity<>(JSON.toJSON(list.getContent()), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/group", method = RequestMethod.GET)
+    public ResponseEntity<?> listOrders(@RequestParam(value = "page", defaultValue = "0") Integer page, HttpServletRequest req) {
+        List list = orderItemRepository.findAll();
+        return new ResponseEntity<>(JSON.toJSON(list), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
@@ -73,8 +80,10 @@ public class OrderController {
             return new ResponseEntity<>("order not found", HttpStatus.BAD_REQUEST);
         }
         User user = userService.whoami(req);
-        if (!user.getDealer().getId().equals(order.get().getDealer().getId())) {
-            return new ResponseEntity<>("dealer not correct", HttpStatus.BAD_REQUEST);
+        if (!user.getRoles().contains(Role.ROLE_ADMIN)) {
+            if (!user.getDealer().getId().equals(order.get().getDealer().getId())) {
+                return new ResponseEntity<>("dealer not correct", HttpStatus.BAD_REQUEST);
+            }
         }
         return new ResponseEntity<>(JSON.toJSON(order.get()), HttpStatus.OK);
     }
@@ -110,17 +119,25 @@ public class OrderController {
         return new ResponseEntity<>(JSON.toJSON(map), HttpStatus.CREATED);
     }
 
+
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
-    public ResponseEntity<?> updateOrder(@PathVariable("id") Long id, @RequestBody Map<String, Object> map) {
+    public ResponseEntity<?> updateOrder(@PathVariable("id") Long id, @RequestBody Map<String, Object> map, HttpServletRequest req) {
+        User user = userService.whoami(req);
         Optional<OrderItem> orderItem = orderItemRepository.findById(id);
         if (!orderItem.isPresent()) {
-            return new ResponseEntity<>("failed", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("cannot find order", HttpStatus.BAD_REQUEST);
+        }
+        if (!user.getRoles().contains(Role.ROLE_ADMIN)) {
+            if (!orderItem.get().getDealer().getId().equals(user.getDealer().getId())) {
+                return new ResponseEntity<>("order id check failed", HttpStatus.BAD_REQUEST);
+            }
         }
         JSONObject jsonObject = (JSONObject) JSON.toJSON(orderItem.get());
         for (String key : map.keySet()) {
             jsonObject.put(key, map.get(key));
         }
+
         orderItemRepository.save(JSON.toJavaObject(jsonObject, OrderItem.class));
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
