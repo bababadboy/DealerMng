@@ -40,10 +40,10 @@ public class Product implements Serializable {
     * 轮播图列表
     * */
 
-    @ElementCollection(targetClass=String.class,fetch = FetchType.EAGER)
+    @ElementCollection
     @CollectionTable(name="carousel_images", joinColumns=@JoinColumn(name="id" , nullable=false))
     @Column(name="images_url")
-    @OrderColumn(name="images_order")
+//    @OrderColumn(name="images_order")
     private List<String> carouselImages;
 
     /*@ElementCollection
@@ -54,10 +54,10 @@ public class Product implements Serializable {
     * 详情图列表
     * */
 
-    @ElementCollection(targetClass=String.class,fetch = FetchType.EAGER)
+    @ElementCollection
     @CollectionTable(name="detail_images", joinColumns=@JoinColumn(name="id" , nullable=false))
     @Column(name="images_url")
-    @OrderColumn(name="images_order")
+//    @OrderColumn(name="images_order")
     private List<String> detailImages;
 
     /*@ElementCollection
