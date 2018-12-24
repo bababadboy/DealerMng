@@ -97,6 +97,7 @@ public class OrderController {
         orderItem.setOrderedAt(new Date());
         orderItem.setDealer(user.getDealer());
         double totalPrice = 0.0D;
+        List<Product> products = new ArrayList<>();
         for (OrderDetail od : orderItem.getOrderDetails()) {
             Optional<Product> product = productRepository.findByNo(od.getProduct().getNo());
             double price = od.getAmount() * product.get().getPrice();
@@ -104,6 +105,8 @@ public class OrderController {
             od.setProduct(product.get());
             totalPrice += price;
             orderDetails.add(od);
+            product.get().setStocks(product.get().getStocks() - od.getAmount());
+            products.add(product.get());
         }
         orderItem.setOrderDetails(orderDetails);
         orderItem.setOrderTotalPrice(totalPrice);
@@ -112,6 +115,7 @@ public class OrderController {
             od.setOrderItem(order);
         }
         orderDetailRepository.saveAll(orderDetails);
+        productRepository.saveAll(products);
         Map<String, Object> map = new HashMap<>(3);
         map.put("id", order.getId());
         map.put("orderedAt", order.getOrderedAt());

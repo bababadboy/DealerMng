@@ -53,7 +53,7 @@ public class GroupInventroyController {
             String warehouseAddress = groupWarehouse.getAddress();
             String productNo = groupInventory.getNo();
             String productName = groupInventory.getName();
-            int stock = groupInventory.getStocks();
+            Long stock = groupInventory.getStocks();
             String warehouseName = groupWarehouse.getWarehouseName();
             double price = groupInventory.getPrice();
             JSONObject jsonObject = new JSONObject();
@@ -85,7 +85,7 @@ public class GroupInventroyController {
             String warehouseAddress = groupInventory.getGroupWarehouse().getAddress();
             String productNo = groupInventory.getProduct().getNo();
             String productName = groupInventory.getProduct().getName();
-            int stock = groupInventory.getProduct().getStocks();
+            Long stock = groupInventory.getProduct().getStocks();
             String warehouseName = groupInventory.getGroupWarehouse().getWarehouseName();
             double price = groupInventory.getProduct().getPrice();
             JSONObject jsonObject = new JSONObject();
@@ -104,7 +104,7 @@ public class GroupInventroyController {
 @RequestMapping(value = "/groupInventory", method = RequestMethod.POST)
     public  void  updateInventory(@RequestBody JSONObject jsonObject){
     String productNo=  jsonObject.getString("productNo");
-    short stocks=  jsonObject.getShort("stock");
+    Long stocks=  jsonObject.getLong("stock");
     Long warehouseId=  jsonObject.getLong("warehouseId");
 
     //Combined query inventory entity by  warehouseId and productId
