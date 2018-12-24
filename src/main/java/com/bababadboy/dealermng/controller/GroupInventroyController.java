@@ -4,8 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.bababadboy.dealermng.entity.GroupInventory;
+import com.bababadboy.dealermng.entity.GroupWarehouse;
 import com.bababadboy.dealermng.entity.Product;
 import com.bababadboy.dealermng.repository.GroupInventoryReposity;
+import com.bababadboy.dealermng.repository.GroupWarehouseReposity;
 import com.bababadboy.dealermng.repository.ProductRepository;
 import com.bababadboy.dealermng.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,8 @@ import java.util.List;
 public class GroupInventroyController {
     @Autowired
     private GroupInventoryReposity groupInventoryReposity;
-
+    @Autowired
+    private GroupWarehouseReposity groupWarehouseReposity;
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -42,15 +45,17 @@ public class GroupInventroyController {
     public Object retrieveAllInventory() {
 
         List<GroupInventory> list = groupInventoryReposity.findAll();
+        List<Product> productList = productRepository.findAll();
+        GroupWarehouse groupWarehouse = groupWarehouseReposity.getOne(1L);
         List<JSON> jsonList = new ArrayList<>();
-        for (GroupInventory groupInventory : list) {
-            String warehouseId = groupInventory.getGroupWarehouse().getId().toString();
-            String warehouseAddress = groupInventory.getGroupWarehouse().getAddress();
-            String productNo = groupInventory.getProduct().getNo();
-            String productName = groupInventory.getProduct().getName();
-            int stock = groupInventory.getProduct().getStocks();
-            String warehouseName = groupInventory.getGroupWarehouse().getWarehouseName();
-            double price = groupInventory.getProduct().getPrice();
+        for (Product groupInventory : productList) {
+            String warehouseId = groupWarehouse.getId().toString();
+            String warehouseAddress = groupWarehouse.getAddress();
+            String productNo = groupInventory.getNo();
+            String productName = groupInventory.getName();
+            int stock = groupInventory.getStocks();
+            String warehouseName = groupWarehouse.getWarehouseName();
+            double price = groupInventory.getPrice();
             JSONObject jsonObject = new JSONObject();
 
             jsonObject.put("warehouseAddress", warehouseAddress);

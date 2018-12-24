@@ -16,4 +16,7 @@ public interface GroupInventoryReposity extends JpaRepository<GroupInventory,Lon
     GroupInventory findGroupInventoryByGroupWarehouseAndProduct(Long warehouseId,Long productId);
     @Override
     Page<GroupInventory> findAll(Pageable pageable);
+
+    @Override
+    boolean existsById(Long aLong);
 }

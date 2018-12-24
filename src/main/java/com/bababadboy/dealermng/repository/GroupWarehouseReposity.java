@@ -8,4 +8,7 @@ import java.util.List;
 public interface GroupWarehouseReposity extends JpaRepository<GroupWarehouse,Long> {
     @Override
     List<GroupWarehouse> findAll();
+
+    @Override
+    GroupWarehouse getOne(Long aLong);
 }
