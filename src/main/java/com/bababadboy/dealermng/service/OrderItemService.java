@@ -12,12 +12,10 @@ import java.util.List;
 public interface OrderItemService {
     /**
      * 分页获取经销商订单信息
-     * @param page 页码
-     * @param size 每页数量
      * @param dealer 经销商信息
      * @return 订单分页
      */
-    Page<OrderItem> listOrdersByPage(Integer page, Integer size, Dealer dealer);
+    List<OrderItem> listOrdersByPage(Dealer dealer);
 
     List<OrderItem> listRecentOrders(Dealer dealer);
 }

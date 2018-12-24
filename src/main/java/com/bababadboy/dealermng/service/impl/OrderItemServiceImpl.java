@@ -25,9 +25,8 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public Page<OrderItem> listOrdersByPage(Integer page, Integer size, Dealer dealer) {
-        Pageable pageable = PageRequest.of(page, size);
-        return orderItemRepository.findAllByDealer(pageable, dealer);
+    public List<OrderItem> listOrdersByPage(Dealer dealer) {
+        return orderItemRepository.findAllByDealer(dealer);
     }
 
     @Override

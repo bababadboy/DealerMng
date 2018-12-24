@@ -55,14 +55,14 @@ public class OrderController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> listOrdersByDealerId(@RequestParam(value = "page", defaultValue = "0") Integer page, HttpServletRequest req) {
+    public ResponseEntity<?> listOrdersByDealerId(HttpServletRequest req) {
         User user = userService.whoami(req);
         Optional<Dealer> dealer = dealerRepository.findById(user.getDealer().getId());
         if (!dealer.isPresent()) {
             return new ResponseEntity<>("dealer not found", HttpStatus.BAD_REQUEST);
         }
-        Page<OrderItem> list = orderItemService.listOrdersByPage(page, 10, dealer.get());
-        return new ResponseEntity<>(JSON.toJSON(list.getContent()), HttpStatus.OK);
+        List<OrderItem> list = orderItemService.listOrdersByPage(dealer.get());
+        return new ResponseEntity<>(JSON.toJSON(list), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
