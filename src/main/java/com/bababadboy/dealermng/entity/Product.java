@@ -26,7 +26,7 @@ public class Product implements Serializable {
 
     private String name;
 
-    private int stocks;
+    private Long stocks;
 
     @Version
     @Column(name = "version")
@@ -69,7 +69,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String no, String name, int stocks, int version,
+    public Product(String no, String name, Long stocks, int version,
                    String categories, String description, double price,
                    List<String> carouselImages, List<String> detailImages) {
         this.no = no;
@@ -108,11 +108,11 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public int getStocks() {
+    public Long getStocks() {
         return stocks;
     }
 
-    public void setStocks(int stocks) {
+    public void setStocks(Long stocks) {
         this.stocks = stocks;
     }
 
