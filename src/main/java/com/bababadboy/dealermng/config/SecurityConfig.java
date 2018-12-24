@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
+       this.jwtTokenProvider = jwtTokenProvider;
     }
 
 
@@ -70,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/productSale/amount").permitAll()
 //                .antMatchers("/produtSale/quantity").permitAll()
 //                .antMatchers("/productSale/amount/category").permitAll()
+//                .antMatchers("/groupInventory").permitAll()
 //                .antMatchers("/stocks").permitAll()
 //                // Disallow everything else..
 //                .anyRequest().authenticated();
