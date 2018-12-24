@@ -17,80 +17,80 @@ INSERT INTO `dealermng`.`dealer` (`id`, `city`, `details`, `district`, `province
 INSERT INTO `dealermng`.`dealer` (`id`, `city`, `details`, `district`, `province`, `street`, `area`, `credit`, `expired_at`, `gender`, `name`, `note`, `phone`, `register_at`) VALUES ('6', 'NanJing', 'NanJing Transport', 'NanJing', 'JiangSu', 'BuDv', 'BuDv', '6', '2018-12-06 16:00:00.000000', 'femal', 'NormaliYmz3', 'NULL', '12345678907', '2018-12-06 16:00:00.000000');
 
 -- 产品详情图片表
-INSERT into detail_images(id, images_url) VALUES(1,"https://img.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(1,"https://img.alicdn.com/imgextra/i1/355159670/TB2t_TnCv1TBuNjy0FjXXajyXXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(1,"https://img.alicdn.com/imgextra/i4/355159670/TB2WXYgfKEJL1JjSZFGXXa6OXXa_!!355159670.jpg");
+INSERT into detail_images(id, images_url) VALUES(1,"https://img.alicdn.com/imgextra/i4/1634990931/O1CN01nTTJHj1IkRDrcI2IP_!!1634990931.jpg");
+INSERT into detail_images(id, images_url) VALUES(1,"https://img.alicdn.com/imgextra/i3/1634990931/O1CN01wpyBKU1IkRDufJrkn_!!1634990931.jpg");
+INSERT into detail_images(id, images_url) VALUES(1,"https://img.alicdn.com/imgextra/i4/1634990931/O1CN01fECBAp1IkRDrcIZZZ_!!1634990931.jpg");
 
-INSERT into detail_images(id, images_url) VALUES(2,"https://img.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(2,"https://img.alicdn.com/imgextra/i1/355159670/TB2t_TnCv1TBuNjy0FjXXajyXXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(2,"https://img.alicdn.com/imgextra/i4/355159670/TB2WXYgfKEJL1JjSZFGXXa6OXXa_!!355159670.jpg");
+INSERT into detail_images(id, images_url) VALUES(2,"https://img.alicdn.com/imgextra/i3/711882586/O1CN011UyQhHk29R0HLsr_!!711882586.jpg");
+INSERT into detail_images(id, images_url) VALUES(2,"https://img.alicdn.com/imgextra/i3/711882586/O1CN013pdFd01UyQhL03Wva_!!711882586.jpg");
+INSERT into detail_images(id, images_url) VALUES(2,"https://img.alicdn.com/imgextra/i3/711882586/O1CN011UyQhHk29R0HLsr_!!711882586.jpg");
 
-INSERT into detail_images(id, images_url) VALUES(3,"https://img.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(3,"https://img.alicdn.com/imgextra/i1/355159670/TB2t_TnCv1TBuNjy0FjXXajyXXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(3,"https://img.alicdn.com/imgextra/i4/355159670/TB2WXYgfKEJL1JjSZFGXXa6OXXa_!!355159670.jpg");
+INSERT into detail_images(id, images_url) VALUES(3,"https://gd4.alicdn.com/imgextra/i1/1069028005/TB2rEGCXEhnpuFjSZFEXXX0PFXa_!!1069028005.jpg");
+INSERT into detail_images(id, images_url) VALUES(3,"https://gd1.alicdn.com/imgextra/i1/1069028005/TB2w1A9eOpnpuFjSZFkXXc4ZpXa_!!1069028005.jpg");
+INSERT into detail_images(id, images_url) VALUES(3,"https://gd3.alicdn.com/imgextra/i3/1069028005/TB2HZPog5CYBuNkSnaVXXcMsVXa_!!1069028005.jpg");
 
-INSERT into detail_images(id, images_url) VALUES(4,"https://img.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(4,"https://img.alicdn.com/imgextra/i1/355159670/TB2t_TnCv1TBuNjy0FjXXajyXXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(4,"https://img.alicdn.com/imgextra/i4/355159670/TB2WXYgfKEJL1JjSZFGXXa6OXXa_!!355159670.jpg");
+INSERT into detail_images(id, images_url) VALUES(4,"https://gd1.alicdn.com/imgextra/i3/4259915058/O1CN01xjRq8d1nEbmoyaiqI_!!4259915058.jpg");
+INSERT into detail_images(id, images_url) VALUES(4,"https://gd2.alicdn.com/imgextra/i2/4259915058/O1CN01HGayi91nEbmoKMLCm_!!4259915058.jpg");
+INSERT into detail_images(id, images_url) VALUES(4,"https://gd4.alicdn.com/imgextra/i4/4259915058/O1CN01J9Vfay1nEbmq3xdHN_!!4259915058.jpg");
 
-INSERT into detail_images(id, images_url) VALUES(5,"https://img.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(5,"https://img.alicdn.com/imgextra/i1/355159670/TB2t_TnCv1TBuNjy0FjXXajyXXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(5,"https://img.alicdn.com/imgextra/i4/355159670/TB2WXYgfKEJL1JjSZFGXXa6OXXa_!!355159670.jpg");
+INSERT into detail_images(id, images_url) VALUES(5,"https://img.alicdn.com/imgextra/i2/3336611854/O1CN01bvMQ7N1PZAmoxSROM_!!3336611854.jpg");
+INSERT into detail_images(id, images_url) VALUES(5,"https://img.alicdn.com/imgextra/i1/3336611854/O1CN016lCeiW1PZAn7QjxF6_!!3336611854.jpg");
+INSERT into detail_images(id, images_url) VALUES(5,"https://img.alicdn.com/imgextra/i2/3336611854/O1CN01r9fFts1PZAmoL9cr8_!!3336611854.jpg");
 
-INSERT into detail_images(id, images_url) VALUES(6,"https://img.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(6,"https://img.alicdn.com/imgextra/i1/355159670/TB2t_TnCv1TBuNjy0FjXXajyXXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(6,"https://img.alicdn.com/imgextra/i4/355159670/TB2WXYgfKEJL1JjSZFGXXa6OXXa_!!355159670.jpg");
+INSERT into detail_images(id, images_url) VALUES(6,"https://img.alicdn.com/imgextra/i2/3336611854/O1CN01bvMQ7N1PZAmoxSROM_!!3336611854.jpg");
+INSERT into detail_images(id, images_url) VALUES(6,"https://img.alicdn.com/imgextra/i1/3336611854/O1CN016lCeiW1PZAn7QjxF6_!!3336611854.jpg");
+INSERT into detail_images(id, images_url) VALUES(6,"https://img.alicdn.com/imgextra/i2/3336611854/O1CN01r9fFts1PZAmoL9cr8_!!3336611854.jpg");
 
-INSERT into detail_images(id, images_url) VALUES(7,"https://img.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(7,"https://img.alicdn.com/imgextra/i1/355159670/TB2t_TnCv1TBuNjy0FjXXajyXXa_!!355159670.jpg");
-INSERT into detail_images(id, images_url) VALUES(7,"https://img.alicdn.com/imgextra/i4/355159670/TB2WXYgfKEJL1JjSZFGXXa6OXXa_!!355159670.jpg");
+INSERT into detail_images(id, images_url) VALUES(7,"https://img.alicdn.com/imgextra/i2/3336611854/O1CN01bvMQ7N1PZAmoxSROM_!!3336611854.jpg");
+INSERT into detail_images(id, images_url) VALUES(7,"https://img.alicdn.com/imgextra/i1/3336611854/O1CN016lCeiW1PZAn7QjxF6_!!3336611854.jpg");
+INSERT into detail_images(id, images_url) VALUES(7,"https://img.alicdn.com/imgextra/i2/3336611854/O1CN01r9fFts1PZAmoL9cr8_!!3336611854.jpg");
 
 
 -- 产品轮播图片表
-INSERT into carousel_images(id, images_url) VALUES(1,"https://gd4.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg_400x400.jpg");
-INSERT into carousel_images(id, images_url) VALUES(1,"http://gd1.alicdn.com/imgextra/i1/355159670/TB2_J61BN9YBuNjy0FfXXXIsVXa_!!355159670.jpg");
-INSERT into carousel_images(id, images_url) VALUES(1,"http://gd1.alicdn.com/imgextra/i1/355159670/TB2yzHhB49YBuNjy0FfXXXIsVXa_!!355159670.jpg");
+INSERT into carousel_images(id, images_url) VALUES(1,"https://img.alicdn.com/imgextra/i4/1634990931/O1CN01nTTJHj1IkRDrcI2IP_!!1634990931.jpg");
+INSERT into carousel_images(id, images_url) VALUES(1,"https://img.alicdn.com/imgextra/i3/1634990931/O1CN01wpyBKU1IkRDufJrkn_!!1634990931.jpg");
+INSERT into carousel_images(id, images_url) VALUES(1,"https://img.alicdn.com/imgextra/i4/1634990931/O1CN01fECBAp1IkRDrcIZZZ_!!1634990931.jpg");
 
-INSERT into carousel_images(id, images_url) VALUES(2,"https://gd4.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg_400x400.jpg");
-INSERT into carousel_images(id, images_url) VALUES(2,"http://gd1.alicdn.com/imgextra/i1/355159670/TB2_J61BN9YBuNjy0FfXXXIsVXa_!!355159670.jpg");
-INSERT into carousel_images(id, images_url) VALUES(2,"http://gd1.alicdn.com/imgextra/i1/355159670/TB2yzHhB49YBuNjy0FfXXXIsVXa_!!355159670.jpg");
+INSERT into carousel_images(id, images_url) VALUES(2,"https://img.alicdn.com/imgextra/i3/711882586/O1CN011UyQhHk29R0HLsr_!!711882586.jpg");
+INSERT into carousel_images(id, images_url) VALUES(2,"https://img.alicdn.com/imgextra/i3/711882586/O1CN013pdFd01UyQhL03Wva_!!711882586.jpg");
+INSERT into carousel_images(id, images_url) VALUES(2,"https://img.alicdn.com/imgextra/i3/711882586/O1CN011UyQhHk29R0HLsr_!!711882586.jpg");
 
-INSERT into carousel_images(id, images_url) VALUES(3,"https://img.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg");
-INSERT into carousel_images(id, images_url) VALUES(3,"https://img.alicdn.com/imgextra/i1/355159670/TB2t_TnCv1TBuNjy0FjXXajyXXa_!!355159670.jpg");
-INSERT into carousel_images(id, images_url) VALUES(3,"https://img.alicdn.com/imgextra/i4/355159670/TB2WXYgfKEJL1JjSZFGXXa6OXXa_!!355159670.jpg");
+INSERT into carousel_images(id, images_url) VALUES(3,"https://gd4.alicdn.com/imgextra/i1/1069028005/TB2rEGCXEhnpuFjSZFEXXX0PFXa_!!1069028005.jpg");
+INSERT into carousel_images(id, images_url) VALUES(3,"https://gd1.alicdn.com/imgextra/i1/1069028005/TB2w1A9eOpnpuFjSZFkXXc4ZpXa_!!1069028005.jpg");
+INSERT into carousel_images(id, images_url) VALUES(3,"https://gd3.alicdn.com/imgextra/i3/1069028005/TB2HZPog5CYBuNkSnaVXXcMsVXa_!!1069028005.jpg");
 
-INSERT into carousel_images(id, images_url) VALUES(4,"https://img.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg");
-INSERT into carousel_images(id, images_url) VALUES(4,"https://img.alicdn.com/imgextra/i1/355159670/TB2t_TnCv1TBuNjy0FjXXajyXXa_!!355159670.jpg");
-INSERT into carousel_images(id, images_url) VALUES(4,"https://img.alicdn.com/imgextra/i4/355159670/TB2WXYgfKEJL1JjSZFGXXa6OXXa_!!355159670.jpg");
+INSERT into carousel_images(id, images_url) VALUES(4,"https://gd1.alicdn.com/imgextra/i3/4259915058/O1CN01xjRq8d1nEbmoyaiqI_!!4259915058.jpg");
+INSERT into carousel_images(id, images_url) VALUES(4,"https://gd2.alicdn.com/imgextra/i2/4259915058/O1CN01HGayi91nEbmoKMLCm_!!4259915058.jpg");
+INSERT into carousel_images(id, images_url) VALUES(4,"https://gd4.alicdn.com/imgextra/i4/4259915058/O1CN01J9Vfay1nEbmq3xdHN_!!4259915058.jpg");
 
-INSERT into carousel_images(id, images_url) VALUES(5,"https://img.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg");
-INSERT into carousel_images(id, images_url) VALUES(5,"https://img.alicdn.com/imgextra/i1/355159670/TB2t_TnCv1TBuNjy0FjXXajyXXa_!!355159670.jpg");
-INSERT into carousel_images(id, images_url) VALUES(5,"https://img.alicdn.com/imgextra/i4/355159670/TB2WXYgfKEJL1JjSZFGXXa6OXXa_!!355159670.jpg");
+INSERT into carousel_images(id, images_url) VALUES(5,"https://img.alicdn.com/imgextra/i2/3336611854/O1CN01bvMQ7N1PZAmoxSROM_!!3336611854.jpg");
+INSERT into carousel_images(id, images_url) VALUES(5,"https://img.alicdn.com/imgextra/i1/3336611854/O1CN016lCeiW1PZAn7QjxF6_!!3336611854.jpg");
+INSERT into carousel_images(id, images_url) VALUES(5,"https://img.alicdn.com/imgextra/i2/3336611854/O1CN01r9fFts1PZAmoL9cr8_!!3336611854.jpg");
 
-INSERT into carousel_images(id, images_url) VALUES(6,"https://img.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg");
-INSERT into carousel_images(id, images_url) VALUES(6,"https://img.alicdn.com/imgextra/i1/355159670/TB2t_TnCv1TBuNjy0FjXXajyXXa_!!355159670.jpg");
-INSERT into carousel_images(id, images_url) VALUES(6,"https://img.alicdn.com/imgextra/i4/355159670/TB2WXYgfKEJL1JjSZFGXXa6OXXa_!!355159670.jpg");
+INSERT into carousel_images(id, images_url) VALUES(6,"https://img.alicdn.com/imgextra/i2/3336611854/O1CN01bvMQ7N1PZAmoxSROM_!!3336611854.jpg");
+INSERT into carousel_images(id, images_url) VALUES(6,"https://img.alicdn.com/imgextra/i1/3336611854/O1CN016lCeiW1PZAn7QjxF6_!!3336611854.jpg");
+INSERT into carousel_images(id, images_url) VALUES(6,"https://img.alicdn.com/imgextra/i2/3336611854/O1CN01r9fFts1PZAmoL9cr8_!!3336611854.jpg");
 
-INSERT into carousel_images(id, images_url) VALUES(7,"https://img.alicdn.com/imgextra/i1/355159670/TB2dsDQBH1YBuNjSszeXXablFXa_!!355159670.jpg");
-INSERT into carousel_images(id, images_url) VALUES(7,"https://img.alicdn.com/imgextra/i1/355159670/TB2t_TnCv1TBuNjy0FjXXajyXXa_!!355159670.jpg");
-INSERT into carousel_images(id, images_url) VALUES(7,"https://img.alicdn.com/imgextra/i4/355159670/TB2WXYgfKEJL1JjSZFGXXa6OXXa_!!355159670.jpg");
+INSERT into carousel_images(id, images_url) VALUES(7,"https://img.alicdn.com/imgextra/i2/3336611854/O1CN01bvMQ7N1PZAmoxSROM_!!3336611854.jpg");
+INSERT into carousel_images(id, images_url) VALUES(7,"https://img.alicdn.com/imgextra/i1/3336611854/O1CN016lCeiW1PZAn7QjxF6_!!3336611854.jpg");
+INSERT into carousel_images(id, images_url) VALUES(7,"https://img.alicdn.com/imgextra/i2/3336611854/O1CN01r9fFts1PZAmoL9cr8_!!3336611854.jpg");
 
 
 -- 订单子项
-INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details1","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum1","支付宝","unPaid",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
-INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details2","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum2","支付宝","Paid",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",2);
-INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details3","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum3","支付宝","companyConfirmed",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
-INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details4","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum4","支付宝","delivered",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
-INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details5","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum5","支付宝","signed",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",2);
-INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details6","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum6","支付宝","orderDone",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",3);
-INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details7","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum7","支付宝","Paid",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
-INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details7","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum7","支付宝","salesReturned",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
-INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details7","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum7","支付宝","delivered",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
+-- INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details1","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum1","支付宝","unPaid",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
+-- INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details2","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum2","支付宝","Paid",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",2);
+-- INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details3","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum3","支付宝","companyConfirmed",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
+-- INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details4","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum4","支付宝","delivered",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
+-- INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details5","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum5","支付宝","signed",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",2);
+-- INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details6","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum6","支付宝","orderDone",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",3);
+-- INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details7","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum7","支付宝","Paid",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
+-- INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details7","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum7","支付宝","salesReturned",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
+-- INSERT INTO order_item(city, details, district, province, street, completed_at, delivered_at, express_number, note, order_no, order_payment_method, order_status, order_total_price, ordered_at, paid_at, phone, dealer_id) VALUES ("杭州","details7","district1","浙江","下沙",CURRENT_TIME(),CURRENT_TIME(),"315315","note1","ordernum7","支付宝","delivered",2443.5,CURRENT_TIME(),CURRENT_TIME(),"13371243211",1);
 
 -- 订单详情
-INSERT INTO order_detail(amount, total_money, order_item_id, product_no) VALUES (3,55245,1,"YK070005B");
-INSERT INTO order_detail(amount, total_money, order_item_id, product_no) VALUES (3,44445,2,"YK070005B");
-INSERT INTO order_detail(amount, total_money, order_item_id, product_no) VALUES (3,5545,2,"YK070005B");
+-- INSERT INTO order_detail(amount, total_money, order_item_id, product_no) VALUES (3,55245,1,"YK070005B");
+-- INSERT INTO order_detail(amount, total_money, order_item_id, product_no) VALUES (3,44445,2,"YK070005B");
+-- INSERT INTO order_detail(amount, total_money, order_item_id, product_no) VALUES (3,5545,2,"YK070005B");
 
 
 -- 登录用户信息表
