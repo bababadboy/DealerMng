@@ -137,6 +137,22 @@ public class OrderController {
         for (String key : map.keySet()) {
             jsonObject.put(key, map.get(key));
         }
+        if (map.keySet().contains("orderStatus")) {
+            String orderStatus = (String) map.get("orderStatus");
+            if ("0".equals(orderStatus)) {
+                jsonObject.put("orderedAt", new Date());
+            }
+            if ("1".equals(orderStatus)) {
+                jsonObject.put("paidAt", new Date());
+                System.out.println(new Date());
+            }
+            if ("3".equals(orderStatus)) {
+                jsonObject.put("deliveredAt", new Date());
+            }
+            if ("5".equals(orderStatus) || "9".equals(orderStatus)) {
+                jsonObject.put("completedAt", new Date());
+            }
+        }
 
         orderItemRepository.save(JSON.toJavaObject(jsonObject, OrderItem.class));
         return new ResponseEntity<>("success", HttpStatus.OK);

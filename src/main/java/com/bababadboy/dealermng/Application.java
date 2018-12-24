@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.TimeZone;
 
 /**
  * @author Ash
@@ -30,6 +31,7 @@ public class Application {
 
 
     public static void main(String[] args) {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
         SpringApplication.run(Application.class, args);
     }
 
