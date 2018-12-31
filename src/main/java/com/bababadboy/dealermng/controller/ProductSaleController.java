@@ -232,7 +232,7 @@ public class ProductSaleController {
 
     }
     @Transactional
-    @GetMapping(value = "productSale/amount/trend")
+    @GetMapping(value = "/productSale/amount/trend")
     public Object saleTrend(){
 
         Calendar calendar = Calendar.getInstance();
@@ -276,8 +276,9 @@ public class ProductSaleController {
         for( int i = 0;i<day;i++)
         {
             begin.set(year,month,i+1);
-            if(i<day-1)end.set(year,month,i+2);
-            else end.set(year,month,i+1,hour,minute);
+            //if(i<day-1)end.set(year,month,i+2);
+            end.set(year,month,i+2);
+            //else end.set(year,month,i+1,23,59);
             listOfMonth = orderItemRepository.findOrderItemsBypaidAtBetween(begin.getTime(),end.getTime());
 
             for(OrderItem psi:listOfMonth)
@@ -294,13 +295,13 @@ public class ProductSaleController {
         return jsonObject;
     }
 
-    @GetMapping(value = "productSale/quantity")
+    @GetMapping(value = "/productSale/quantity")
     public Object saleQuantity(){
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         int year = calendar.get(Calendar.YEAR);
-        int days = calendar.get(Calendar.DAY_OF_YEAR);
+        int days = calendar.get(Calendar.DAY_OF_MONTH);
         calendar.set(year,0,1);
         List<OrderItem> listOfYear = orderItemRepository.findOrderItemsBypaidAtGreaterThanEqual(calendar.getTime());
         JSONObject jsonObject = new JSONObject( );
@@ -316,8 +317,8 @@ public class ProductSaleController {
         }
 
         jsonObject.put("totalYear",quantity);
-        if(days != 0)
-            jsonObject.put("averagePerDay",quantity/days);
+        //if(days != 0)
+        //    jsonObject.put("averagePerDay",quantity/days);
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE,-10);
         quantity = 0;
@@ -346,8 +347,11 @@ public class ProductSaleController {
             }
 
 
-
             jsonArray.add(i,quantityA-quantityB);
+    if(i==9){
+
+        jsonObject.put("averagePerDay",quantityA-quantityB);
+    }
         }
 
         jsonObject.put("recent",jsonArray);
@@ -369,7 +373,7 @@ public class ProductSaleController {
         today.setTime(new Date());
         year = today.get(Calendar.YEAR);
         month =today.get(Calendar.MONTH);
-        date = today.get(Calendar.DATE);
+        date = today.get(Calendar.DAY_OF_MONTH);
         second =today.get(Calendar.SECOND);
         dayOfWeek = today.get(Calendar.DAY_OF_WEEK);
         week = today.get(Calendar.WEEK_OF_MONTH);
@@ -379,12 +383,15 @@ public class ProductSaleController {
         thisYear.set(year,-1,1);
 
         //今年
+        calendar.set(year,0,1);
         List<OrderItem> listOfYear = orderItemRepository.findOrderItemsBypaidAtGreaterThanEqual(calendar.getTime());
         int totalAmount=0;
         for(OrderItem psi:listOfYear)
         {
             totalAmount +=psi.getOrderTotalPrice().intValue();
         }
+
+        calendar.set(year,month,date);
         //【今天】
         List<OrderItem> listOfDay = orderItemRepository.findOrderItemsBypaidAtGreaterThanEqual(calendar.getTime());
 
@@ -393,6 +400,7 @@ public class ProductSaleController {
         {
             todayAmount +=psi.getOrderTotalPrice().intValue();
         }
+        calendar.add(Calendar.DATE,-1);
         //今天【昨天】
         List <OrderItem> listOfTwoDays = orderItemRepository.findOrderItemsBypaidAtGreaterThanEqual(calendar.getTime());
         int lastAmount=0;
@@ -401,9 +409,10 @@ public class ProductSaleController {
             lastAmount +=psi.getOrderTotalPrice().intValue();
         }
 
+
         //今天昨天【前天】
         calendar.set(year,month,date);
-        calendar.add(Calendar.DATE,-2);
+        calendar.add(Calendar.DATE,-1);
         List <OrderItem> listOfThreeDays = orderItemRepository.findOrderItemsBypaidAtGreaterThanEqual(calendar.getTime());
 
         int twoDatsAmount=0;
@@ -411,6 +420,7 @@ public class ProductSaleController {
         {
             twoDatsAmount +=psi.getOrderTotalPrice().intValue();
         }
+
 
         //上周
         calendar.set(year,month,date);
