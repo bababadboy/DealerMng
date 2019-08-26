@@ -11,6 +11,8 @@ import com.bababadboy.dealermng.repository.UserRepository;
 import com.bababadboy.dealermng.security.JwtTokenProvider;
 import org.hibernate.service.spi.ServiceException;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import org.springframework.security.config.BeanIds;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
@@ -28,8 +31,11 @@ import java.util.*;
 /**
  * @author wangxiaobin
  */
+@Transactional
 @Service
 public class UserService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
 
@@ -64,24 +70,26 @@ public class UserService {
     public String signUp(User user) throws ServiceException {
         if (!userRepository.existsUserByUsername(user.getUsername())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            System.out.println("注册密码是："+user.getPassword());
+            LOG.info("注册密码是："+user.getPassword());
             // 得到与user一一对应的dealer
             Dealer d = user.getDealer();
             try {
                 // 设置dealer经销商的默认属性
-                Timestamp ts = new Timestamp(System.currentTimeMillis());
-                d.setRegisterAt(new Date(ts.getTime()));
-                Timestamp expiredTime = new Timestamp(1570673410);
-                d.setExpiredAt(new Date(expiredTime.getTime()));
-                d.setCredit(1);
-                d.setArea("中国华东区");
-                dealerRepository.save(d);
-                System.out.println("dealer saved: " + d.getId());
+                if (null != d){
+                    Timestamp ts = new Timestamp(System.currentTimeMillis());
+//                d.setRegisterAt(new Date(ts.getTime()));
+                    d.setRegisterAt(new Date(System.currentTimeMillis()));
+                    Timestamp expiredTime = new Timestamp(1570673410);
+                    d.setExpiredAt(new Date(expiredTime.getTime()));
+                    d.setCredit(1);
+                    d.setArea("中国华东区");
+                    dealerRepository.save(d);
+                    user.setDealer(d);
+                    LOG.info("{}对应的dealer保存成功!",user.getUsername());
+                }
                 user.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
-                user.setDealer(d);
                 userRepository.save(user);
             } catch (Exception e) {
-                dealerRepository.deleteById(d.getId());
                 e.printStackTrace();
                 return "null";
             }
