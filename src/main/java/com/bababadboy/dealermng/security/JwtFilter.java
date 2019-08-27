@@ -15,15 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Objects;
 
 /**
  * 从Http请求中提取JWT的信息，并使用了”secretkey”这个密匙对JWT进行验证
  * @author wangxiaobin
+ * @date 2019-08-27 修改
  */
 public class JwtFilter extends GenericFilterBean {
 
-    // todo filter无法注入 https://blog.csdn.net/itguangit/article/details/78349033
-//    @Value("${security.jwt.token.secret-key}")
+    // todo filter无法注入,解决方法 https://blog.csdn.net/itguangit/article/details/78349033
     private String secretkey;
 
     @PostConstruct
@@ -35,8 +36,9 @@ public class JwtFilter extends GenericFilterBean {
     @Override
     protected void initFilterBean() throws ServletException {
         super.initFilterBean();
-        // 获取JwtCfg中设置的初始参数
-        secretkey = super.getFilterConfig().getInitParameter("secretkey");
+        // 获取JwtCfg中给JwtFilter Bean设置的初始参数
+        secretkey = Objects.requireNonNull(super.getFilterConfig())
+                .getInitParameter(SecurityConstants.SECRETKEY_PARAMETER);
     }
 
     @Override
@@ -70,7 +72,7 @@ public class JwtFilter extends GenericFilterBean {
 
             try {
                 // Use JWT parser to check if the signature is valid with the Key "secret-key"
-                // 使用了”secretkey”这个密匙对JWT进行验证
+                // 使用”secretkey”这个密匙对JWT验证。header、payload与sign是否匹配
                 final Claims claims = Jwts
                         .parser()
                         .setSigningKey(Base64.getEncoder().encodeToString(secretkey.getBytes()))

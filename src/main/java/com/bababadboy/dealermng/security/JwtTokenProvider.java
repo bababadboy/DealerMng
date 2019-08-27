@@ -1,8 +1,11 @@
 package com.bababadboy.dealermng.security;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.bababadboy.dealermng.entity.user.Role;
 import com.bababadboy.dealermng.exception.CustomException;
-import com.bababadboy.dealermng.service.impl.MyUserDetails;
+import com.bababadboy.dealermng.service.impl.MyUserDetailsImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -36,12 +39,11 @@ public class JwtTokenProvider {
     @Value("${security.jwt.token.secret-key}")
     private String secretKey;
 
-    // 2h
     @Value("${security.jwt.token.expire-length}")
     private long validityInMilliseconds;
 
     @Autowired
-    private MyUserDetails myUserDetails;
+    private MyUserDetailsImpl myUserDetailsImpl;
 
     @PostConstruct
     protected void init() {
@@ -51,11 +53,15 @@ public class JwtTokenProvider {
     public String createToken(String username, List<Role> roles) {
 
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("auth", roles.stream().map(s -> new SimpleGrantedAuthority(s.getAuthority())).filter(Objects::nonNull).collect(Collectors.toList()));
+        claims.put("auth", roles.stream()
+                .map(s -> new SimpleGrantedAuthority(s.getAuthority()))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList()));
 
         Date now = new Date(System.currentTimeMillis());
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
+        // 建造者模式
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
@@ -65,7 +71,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = myUserDetails.loadUserByUsername(getUsername(token));
+        UserDetails userDetails = myUserDetailsImpl.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -77,7 +83,8 @@ public class JwtTokenProvider {
     }
 
     /**
-     * 分解request，获取token
+     * 分解request，获取header,
+     * 去除"bearer "获取token,bearer xxxxxxyyyyzzz => xxxxxxyyyyzzz
      */
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader(SecurityConstants.HEADER_STRING);

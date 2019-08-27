@@ -126,9 +126,12 @@ public class UserService {
      */
     public String logIn(String username, String password) {
         try {
+            // 登录凭证验证
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            System.out.println("token是"+jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles()));
-            return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+            // 创建token
+            String token = jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+            LOG.info("{}登录创建token：{}",username,token);
+            return token;
         } catch (AuthenticationException e) {
             throw new CustomException("Invalid username or password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
         }

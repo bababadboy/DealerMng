@@ -19,7 +19,7 @@ public class JwtCfg {
     public FilterRegistrationBean<JwtFilter> jwtFilter() {
         FilterRegistrationBean<JwtFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new JwtFilter());
-        registrationBean.addInitParameter("secretkey",secretkey);   // 初始化JwtFilter参数
+        registrationBean.addInitParameter(SecurityConstants.SECRETKEY_PARAMETER,secretkey);   // 初始化JwtFilter参数
         registrationBean.addUrlPatterns("/products/*");
         registrationBean.addUrlPatterns("/orders/*");
         registrationBean.addUrlPatterns("/groupwarehouses/*");
