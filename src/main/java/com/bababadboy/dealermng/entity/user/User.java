@@ -12,6 +12,7 @@ import java.util.List;
  * @author wangxiaobin
  */
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
@@ -30,6 +31,10 @@ public class User {
     @Size(min = 6, message = "Minimum password length: 6 characters")
     @Column(nullable = false)
     private String password;
+
+    // 是否被锁定
+    @Column(nullable = false)
+    private boolean isLocked;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
@@ -51,8 +56,17 @@ public class User {
         this.group = group;
     }
 
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
+    }
+
     /** getter and setter **/
     //得到对应的经销商
+
     public void setDealer(Dealer dealer){
         this.dealer = dealer;
     }

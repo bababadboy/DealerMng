@@ -22,23 +22,12 @@ import java.util.TimeZone;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @SpringBootApplication
 public class Application {
-//    private final UserService userService;
-
-//    @Autowired
-//    public Application(UserService userService) {
-//        this.userService = userService;
-//    }
-
 
     public static void main(String[] args) {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
 
 //
 //    @Override

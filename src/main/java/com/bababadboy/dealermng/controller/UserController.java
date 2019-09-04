@@ -8,11 +8,17 @@ import com.bababadboy.dealermng.service.impl.UserService;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AccountStatusException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
 
+import javax.security.auth.login.AccountLockedException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -47,12 +53,21 @@ public class UserController {
 
     @PostMapping("/login")
     public Object logIn(@RequestParam String username,@RequestParam String password){
-        String token = userService.logIn(username,password);
-        UserDataDTO info = modelMapper.map(userService.search(username),UserDataDTO.class);
+
         JSONObject result = new JSONObject();
-        result.put("userMsg",info);
-        result.put("accessToken",token);
-        return JSON.toJSON(result);
+        try{
+            String token = userService.logIn(username,password);
+            UserDataDTO info = modelMapper.map(userService.search(username),UserDataDTO.class);
+            result.put("userMsg",info);
+            result.put("accessToken",token);
+            return JSON.toJSON(result);
+        }catch (BadCredentialsException | UsernameNotFoundException ex){
+            result.put("msg","用户名密码错误错误");
+            return JSON.toJSON(result);
+        }catch (AccountLockedException | AccountStatusException ex){
+            result.put("msg","账户已被锁定");
+            return JSON.toJSON(result);
+        }
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 只有admin才能有删除权限

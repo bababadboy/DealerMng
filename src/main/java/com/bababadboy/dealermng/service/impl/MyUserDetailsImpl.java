@@ -7,12 +7,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.AccountLockedException;
+
 /**
- * 权限控制用户service
+ * 获取用户信息
  * @author wangxiaobin
  */
-@Service
-public class MyUserDetails implements UserDetailsService {
+@Service("userDetails")
+public class MyUserDetailsImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -23,16 +25,16 @@ public class MyUserDetails implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("User: '"+username+"' not found!!");
+            throw new UsernameNotFoundException("用户名: '"+username+"不存在!!");
         }
-        return org.springframework.security.core.userdetails.User//
-                .withUsername(username)//
-                .password(user.getPassword())//
-                .authorities(user.getRoles())//
-                .accountExpired(false)//
-                .accountLocked(false)//
-                .credentialsExpired(false)//
-                .disabled(false)//
+        return org.springframework.security.core.userdetails.User
+                .withUsername(username)
+                .password(user.getPassword())
+                .authorities(user.getRoles())
+                .accountExpired(false)
+                .accountLocked(user.isLocked()) // 如果为true 会不会抛出AccountLockedException??
+                .credentialsExpired(false)
+                .disabled(false)
                 .build();
     }
 }
